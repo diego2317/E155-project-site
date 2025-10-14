@@ -1,0 +1,9 @@
+---
+title: "Project Proposal"
+description: "Project Proposal"
+author: "Aabhas Senapati & Diego Weiss"
+date: "10/15/25"
+categories:
+  - deliverables
+draft: false
+---
