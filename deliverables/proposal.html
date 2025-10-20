@@ -72,6 +72,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -114,8 +143,33 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#project-design-overview" id="toc-project-design-overview" class="nav-link active" data-scroll-target="#project-design-overview">Project Design &amp; Overview</a></li>
+  <li><a href="#specifications" id="toc-specifications" class="nav-link" data-scroll-target="#specifications">Specifications</a></li>
+  <li><a href="#design-details" id="toc-design-details" class="nav-link" data-scroll-target="#design-details">Design Details</a>
+  <ul class="collapse">
+  <li><a href="#mcu-design-new-functionality" id="toc-mcu-design-new-functionality" class="nav-link" data-scroll-target="#mcu-design-new-functionality">MCU Design &amp; New Functionality</a></li>
+  <li><a href="#fpga-design-new-functionality" id="toc-fpga-design-new-functionality" class="nav-link" data-scroll-target="#fpga-design-new-functionality">FPGA Design &amp; New Functionality</a></li>
+  <li><a href="#new-hardware" id="toc-new-hardware" class="nav-link" data-scroll-target="#new-hardware">New Hardware</a></li>
+  <li><a href="#riskiest-element" id="toc-riskiest-element" class="nav-link" data-scroll-target="#riskiest-element">Riskiest Element</a></li>
+  </ul></li>
+  <li><a href="#technical-documentation" id="toc-technical-documentation" class="nav-link" data-scroll-target="#technical-documentation">Technical Documentation</a>
+  <ul class="collapse">
+  <li><a href="#block-diagram" id="toc-block-diagram" class="nav-link" data-scroll-target="#block-diagram">Block Diagram</a></li>
+  <li><a href="#performance-calculations" id="toc-performance-calculations" class="nav-link" data-scroll-target="#performance-calculations">Performance Calculations</a></li>
+  </ul></li>
+  <li><a href="#project-management" id="toc-project-management" class="nav-link" data-scroll-target="#project-management">Project Management</a>
+  <ul class="collapse">
+  <li><a href="#bill-of-materials" id="toc-bill-of-materials" class="nav-link" data-scroll-target="#bill-of-materials">Bill of Materials</a></li>
+  <li><a href="#project-timeline" id="toc-project-timeline" class="nav-link" data-scroll-target="#project-timeline">Project Timeline</a></li>
+  <li><a href="#task-delegation" id="toc-task-delegation" class="nav-link" data-scroll-target="#task-delegation">Task Delegation</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -159,8 +213,223 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="project-design-overview" class="level2">
+<h2 class="anchored" data-anchor-id="project-design-overview">Project Design &amp; Overview</h2>
+<p>The inspiration for this project came from a project Diego completed in a robotics class during his junior year of high school. He built an extremely rudimentary line-follower robot using an Arduino and two IR sensors. The goal of this project is to once again build a line-follower robot, this time interfacing an OV7670 camera with an UPduino iCE40 UP5K FPGA board (“the FPGA”) and a STM32L432KC microcontroller (“the MCU”). The FPGA will interface with the OV7670 to detect the line and send the resultant information to the MCU for robot control.</p>
+</section>
+<section id="specifications" class="level2">
+<h2 class="anchored" data-anchor-id="specifications">Specifications</h2>
+<ul>
+<li>Robot follows a black line without significant deviation</li>
+<li>Robot doesn’t move if no line is detected</li>
+<li>Design allows user to configure threshold for line being detected</li>
+<li>Robot uses camera as vision interface</li>
+</ul>
+</section>
+<section id="design-details" class="level2">
+<h2 class="anchored" data-anchor-id="design-details">Design Details</h2>
+<section id="mcu-design-new-functionality" class="level3">
+<h3 class="anchored" data-anchor-id="mcu-design-new-functionality">MCU Design &amp; New Functionality</h3>
+<p>The MCU will have four critical functions. It needs to configure the OV7670 over the SCCB interface, send the FPGA a signal to drive XCLK, read bit-masked frames from the FPGA over SPI, and control the position of the robot along the line based on the data from the frames. The new functionality on the MCU will be the SCCB peripheral and the implementation of DMA to enable high-speed SPI reads.</p>
+</section>
+<section id="fpga-design-new-functionality" class="level3">
+<h3 class="anchored" data-anchor-id="fpga-design-new-functionality">FPGA Design &amp; New Functionality</h3>
+<p>The FPGA has several critical functions, notably to: drive XCLK at 24MHz, read &amp; process pixel data from the OV7670, and communicate that data to the MCU over SPI. In order to send pixel data to the MCU, a double SPRAM buffer will be implemented. The new functionality on the FPGA will be the SPRAM buffer and SPI communication.</p>
+</section>
+<section id="new-hardware" class="level3">
+<h3 class="anchored" data-anchor-id="new-hardware">New Hardware</h3>
+<p>The main piece of new hardware being integrated is the OV7670 camera module.</p>
+</section>
+<section id="riskiest-element" class="level3">
+<h3 class="anchored" data-anchor-id="riskiest-element">Riskiest Element</h3>
+<p>Using the MCU to configure the OV7670 is definitely the riskiest element of the project. Although the SCCB interface is based on I2C, literature review indicated that the I2C interface on the MCU would not be able to configure the camera. So, the team will need to bit-bang an SCCB interface. The team will attempt to mitigate risk by consulting examples available online.</p>
+</section>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<section id="block-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="block-diagram">Block Diagram</h3>
+<div id="fig-bd" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/proposal/block_diagram_1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Block Diagram
+</figcaption>
+</figure>
+</div>
+<p>The block diagram in <a href="#fig-bd" class="quarto-xref">Figure&nbsp;1</a> provides a general outline of the protocols and interfaces that will be utilized in the project.</p>
+</section>
+<section id="performance-calculations" class="level3">
+<h3 class="anchored" data-anchor-id="performance-calculations">Performance Calculations</h3>
+<section id="spi-performance" class="level4">
+<h4 class="anchored" data-anchor-id="spi-performance">SPI Performance</h4>
+<p>According to the datasheet of the STM32, the maximum frequency of SCK when configured in master/receiver full-duplex mode is 40MHz when VDD ∈ [2.7, 3.6]. A 40 MHz SCK results in a maximum throughput of approximately 5 MB/s. Since each frame will be 9.6kB, each frame can be read in approximately 1.92ms. For a frame rate of 30 fps, the FPGA will produce a frame every 33.3ms. This means that there will be approximately 31.3 ms for robot control.</p>
+</section>
+<section id="lut-usage" class="level4">
+<h4 class="anchored" data-anchor-id="lut-usage">LUT Usage</h4>
+<p>These are meant to be preliminary order-of-magnitude calculations. The FPGA used (Lattice iCE40 UP5K) has hardware SPI support, so the SPI interface requires no LUTs.</p>
+<ul>
+<li>Assuming 8 8-bit counters for things like write address, read address, frame ID, etc, we have 64 LUTs</li>
+<li>For bit masking, a comparator can be used. If we compare on all 8 bits of the Y (using a YUV pixel format), we’d need 8 LUTs</li>
+<li>To encode the double buffer, we’d need enough LUTs for state. If we assume 20 states (massive overestimate), we’d at most 100 LUTs.</li>
+<li>To account for any other random parts of the design, we’ll add in 200 extra LUTs</li>
+</ul>
+<p>This only brings us &lt;400 LUTs. Although we likely missed aspects of the design, it is exceedingly unlikely that we come close to even 40% LUT resource usage on the FPGA, as the FPGA has ~5000 LUTs available</p>
+</section>
+<section id="spram-buffer-sizing" class="level4">
+<h4 class="anchored" data-anchor-id="spram-buffer-sizing">SPRAM Buffer Sizing</h4>
+<p>According to the <a href="https://hmc-e155.github.io/assets/doc/FPGA-DS-02008-2-0-iCE40-UltraPlus-Family-Data-Sheet.pdf">datasheet</a> for the FPGA, we have 1 MB of SPRAM available. A 1-bit mask of a QVGA image only requires 9.6kB of space. So, we have more than enough space in SPRAM.</p>
+</section>
+</section>
+</section>
+<section id="project-management" class="level2">
+<h2 class="anchored" data-anchor-id="project-management">Project Management</h2>
+<section id="bill-of-materials" class="level3">
+<h3 class="anchored" data-anchor-id="bill-of-materials">Bill of Materials</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 29%">
+<col style="width: 22%">
+<col style="width: 15%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Part Number</th>
+<th>Quantity</th>
+<th>Price</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Camera Module</td>
+<td>OV7670</td>
+<td>1</td>
+<td>$8-12 (+ shipping)</td>
+<td>Amazon</td>
+</tr>
+<tr class="even">
+<td>Potentiometer (Threshold control)</td>
+<td>10 k <span class="math inline">\(\Omega\)</span> Linear Pot</td>
+<td>1</td>
+<td>Stockroom</td>
+<td>Stockroom</td>
+</tr>
+<tr class="odd">
+<td>DC Motors</td>
+<td>TT Gear Motor (3-6 V)</td>
+<td>2</td>
+<td>Stockroom</td>
+<td>Stockroom</td>
+</tr>
+<tr class="even">
+<td>Motor Driver</td>
+<td>L298N</td>
+<td>1</td>
+<td>$3-6</td>
+<td>Amazon/Stockroom</td>
+</tr>
+<tr class="odd">
+<td>Robot Chassis Kit</td>
+<td>N/A</td>
+<td>1</td>
+<td>Stockroom</td>
+<td>Stockroom</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="project-timeline" class="level3">
+<h3 class="anchored" data-anchor-id="project-timeline">Project Timeline</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Task(s)</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Finish proposal</td>
+<td>10/20/25</td>
+</tr>
+<tr class="even">
+<td>Start Project</td>
+<td>10/21/25</td>
+</tr>
+<tr class="odd">
+<td>Prepare slides for design review</td>
+<td>11/7/25</td>
+</tr>
+<tr class="even">
+<td>Finish Midpoint Report &amp; Demo</td>
+<td>11/16/25</td>
+</tr>
+<tr class="odd">
+<td>Final Checkoff</td>
+<td>12/5/25</td>
+</tr>
+<tr class="even">
+<td>Final Report Due</td>
+<td>12/7/25</td>
+</tr>
+<tr class="odd">
+<td>Demo Day</td>
+<td>12/8/25</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="task-delegation" class="level3">
+<h3 class="anchored" data-anchor-id="task-delegation">Task Delegation</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Diego</th>
+<th>Aabhas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Start MCU Code</td>
+<td>Start FPGA Code</td>
+</tr>
+<tr class="even">
+<td>Check FPGA Code</td>
+<td>Check MCU Code</td>
+</tr>
+<tr class="odd">
+<td>Decide MCU task scheduling</td>
+<td>Decide MCU task scheduling</td>
+</tr>
+<tr class="even">
+<td>Write robot control code</td>
+<td>Check robot control code</td>
+</tr>
+<tr class="odd">
+<td>Check robot</td>
+<td>Assemble robot</td>
+</tr>
+<tr class="even">
+<td>Write verification</td>
+<td>Write verification</td>
+</tr>
+<tr class="odd">
+<td>Write documentation</td>
+<td>Write documentation</td>
+</tr>
+</tbody>
+</table>
+<p>Our aim is to work together as much as possible, so that both team members are full owners of the project.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

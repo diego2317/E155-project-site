@@ -1,5 +1,47 @@
 [
   {
+    "objectID": "deliverables/proposal.html",
+    "href": "deliverables/proposal.html",
+    "title": "Project Proposal",
+    "section": "",
+    "text": "The inspiration for this project came from a project Diego completed in a robotics class during his junior year of high school. He built an extremely rudimentary line-follower robot using an Arduino and two IR sensors. The goal of this project is to once again build a line-follower robot, this time interfacing an OV7670 camera with an UPduino iCE40 UP5K FPGA board (“the FPGA”) and a STM32L432KC microcontroller (“the MCU”). The FPGA will interface with the OV7670 to detect the line and send the resultant information to the MCU for robot control."
+  },
+  {
+    "objectID": "deliverables/proposal.html#project-design-overview",
+    "href": "deliverables/proposal.html#project-design-overview",
+    "title": "Project Proposal",
+    "section": "",
+    "text": "The inspiration for this project came from a project Diego completed in a robotics class during his junior year of high school. He built an extremely rudimentary line-follower robot using an Arduino and two IR sensors. The goal of this project is to once again build a line-follower robot, this time interfacing an OV7670 camera with an UPduino iCE40 UP5K FPGA board (“the FPGA”) and a STM32L432KC microcontroller (“the MCU”). The FPGA will interface with the OV7670 to detect the line and send the resultant information to the MCU for robot control."
+  },
+  {
+    "objectID": "deliverables/proposal.html#specifications",
+    "href": "deliverables/proposal.html#specifications",
+    "title": "Project Proposal",
+    "section": "Specifications",
+    "text": "Specifications\n\nRobot follows a black line without significant deviation\nRobot doesn’t move if no line is detected\nDesign allows user to configure threshold for line being detected\nRobot uses camera as vision interface"
+  },
+  {
+    "objectID": "deliverables/proposal.html#design-details",
+    "href": "deliverables/proposal.html#design-details",
+    "title": "Project Proposal",
+    "section": "Design Details",
+    "text": "Design Details\n\nMCU Design & New Functionality\nThe MCU will have four critical functions. It needs to configure the OV7670 over the SCCB interface, send the FPGA a signal to drive XCLK, read bit-masked frames from the FPGA over SPI, and control the position of the robot along the line based on the data from the frames. The new functionality on the MCU will be the SCCB peripheral and the implementation of DMA to enable high-speed SPI reads.\n\n\nFPGA Design & New Functionality\nThe FPGA has several critical functions, notably to: drive XCLK at 24MHz, read & process pixel data from the OV7670, and communicate that data to the MCU over SPI. In order to send pixel data to the MCU, a double SPRAM buffer will be implemented. The new functionality on the FPGA will be the SPRAM buffer and SPI communication.\n\n\nNew Hardware\nThe main piece of new hardware being integrated is the OV7670 camera module.\n\n\nRiskiest Element\nUsing the MCU to configure the OV7670 is definitely the riskiest element of the project. Although the SCCB interface is based on I2C, literature review indicated that the I2C interface on the MCU would not be able to configure the camera. So, the team will need to bit-bang an SCCB interface. The team will attempt to mitigate risk by consulting examples available online."
+  },
+  {
+    "objectID": "deliverables/proposal.html#technical-documentation",
+    "href": "deliverables/proposal.html#technical-documentation",
+    "title": "Project Proposal",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\n\nBlock Diagram\n\n\n\n\n\n\nFigure 1: Block Diagram\n\n\n\nThe block diagram in Figure 1 provides a general outline of the protocols and interfaces that will be utilized in the project.\n\n\nPerformance Calculations\n\nSPI Performance\nAccording to the datasheet of the STM32, the maximum frequency of SCK when configured in master/receiver full-duplex mode is 40MHz when VDD ∈ [2.7, 3.6]. A 40 MHz SCK results in a maximum throughput of approximately 5 MB/s. Since each frame will be 9.6kB, each frame can be read in approximately 1.92ms. For a frame rate of 30 fps, the FPGA will produce a frame every 33.3ms. This means that there will be approximately 31.3 ms for robot control.\n\n\nLUT Usage\nThese are meant to be preliminary order-of-magnitude calculations. The FPGA used (Lattice iCE40 UP5K) has hardware SPI support, so the SPI interface requires no LUTs.\n\nAssuming 8 8-bit counters for things like write address, read address, frame ID, etc, we have 64 LUTs\nFor bit masking, a comparator can be used. If we compare on all 8 bits of the Y (using a YUV pixel format), we’d need 8 LUTs\nTo encode the double buffer, we’d need enough LUTs for state. If we assume 20 states (massive overestimate), we’d at most 100 LUTs.\nTo account for any other random parts of the design, we’ll add in 200 extra LUTs\n\nThis only brings us &lt;400 LUTs. Although we likely missed aspects of the design, it is exceedingly unlikely that we come close to even 40% LUT resource usage on the FPGA, as the FPGA has ~5000 LUTs available\n\n\nSPRAM Buffer Sizing\nAccording to the datasheet for the FPGA, we have 1 MB of SPRAM available. A 1-bit mask of a QVGA image only requires 9.6kB of space. So, we have more than enough space in SPRAM."
+  },
+  {
+    "objectID": "deliverables/proposal.html#project-management",
+    "href": "deliverables/proposal.html#project-management",
+    "title": "Project Proposal",
+    "section": "Project Management",
+    "text": "Project Management\n\nBill of Materials\n\n\n\n\n\n\n\n\n\n\nItem\nPart Number\nQuantity\nPrice\nSource\n\n\n\n\nCamera Module\nOV7670\n1\n$8-12 (+ shipping)\nAmazon\n\n\nPotentiometer (Threshold control)\n10 k \\(\\Omega\\) Linear Pot\n1\nStockroom\nStockroom\n\n\nDC Motors\nTT Gear Motor (3-6 V)\n2\nStockroom\nStockroom\n\n\nMotor Driver\nL298N\n1\n$3-6\nAmazon/Stockroom\n\n\nRobot Chassis Kit\nN/A\n1\nStockroom\nStockroom\n\n\n\n\n\nProject Timeline\n\n\n\nTask(s)\nDate\n\n\n\n\nFinish proposal\n10/20/25\n\n\nStart Project\n10/21/25\n\n\nPrepare slides for design review\n11/7/25\n\n\nFinish Midpoint Report & Demo\n11/16/25\n\n\nFinal Checkoff\n12/5/25\n\n\nFinal Report Due\n12/7/25\n\n\nDemo Day\n12/8/25\n\n\n\n\n\nTask Delegation\n\n\n\nDiego\nAabhas\n\n\n\n\nStart MCU Code\nStart FPGA Code\n\n\nCheck FPGA Code\nCheck MCU Code\n\n\nDecide MCU task scheduling\nDecide MCU task scheduling\n\n\nWrite robot control code\nCheck robot control code\n\n\nCheck robot\nAssemble robot\n\n\nWrite verification\nWrite verification\n\n\nWrite documentation\nWrite documentation\n\n\n\nOur aim is to work together as much as possible, so that both team members are full owners of the project."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
