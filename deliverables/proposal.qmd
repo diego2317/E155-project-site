@@ -42,7 +42,7 @@ Using the MCU to configure the OV7670 is definitely the riskiest element of the 
 ### Block Diagram
 ![Block Diagram](/images/proposal/block_diagram_1.png){#fig-bd}
 
-The block diagram @fig-bd provides a general outline of the protocols and interfaces that will be utilized in the project.
+The block diagram in @fig-bd provides a general outline of the protocols and interfaces that will be utilized in the project.
 
 ### Performance Calculations
 
@@ -79,8 +79,8 @@ According to the [datasheet](https://hmc-e155.github.io/assets/doc/FPGA-DS-02008
 
 ### Project Timeline
 
-| Task(s) | Date | Owner |
-|---------|------|-------|
+| Task(s) | Date |
+|---------|------|
 | Finish proposal | 10/20/25 |
 | Start Project   | 10/21/25 |
 | Prepare slides for design review | 11/7/25 |
@@ -99,3 +99,5 @@ According to the [datasheet](https://hmc-e155.github.io/assets/doc/FPGA-DS-02008
 | Check robot | Assemble robot |
 | Write verification | Write verification |
 | Write documentation | Write documentation |
+
+Our aim is to work together as much as possible, so that both team members are full owners of the project.
