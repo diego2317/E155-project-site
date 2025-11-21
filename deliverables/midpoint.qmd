@@ -19,9 +19,8 @@ As of the midpoint report being written, the team has accomplished the following
 
 As a reminder, the overall specs for the project are listed below, with the already-completed specs checked off.
 
-- [ ] Robot follows a black line without significant deviation
+- [ ] Robot follows a line of one color without significant deviation
 - [ ] Robot doesn’t move if no line is detected
-- [x] Design allows user to configure threshold for line being detected
 - [ ] Robot uses camera as vision interface
 - [x] FPGA receives pixel data from OV7670
 - [x] FPGA sends masked frame data to MCU over a communication interface
