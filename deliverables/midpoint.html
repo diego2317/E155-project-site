@@ -182,9 +182,8 @@ ul.task-list li input[type="checkbox"] {
 <p>As of the midpoint report being written, the team has accomplished the following: - Configuration of the OV7670 camera module through register writes from the MCU over an I2C interface - Pixel data capture from the OV7670 camera module on the FPGA - Streaming bit-masked pixel data from the FPGA to the MCU over a 1-directional parallel bus - Full bit-masked frame capture and display on the MCU using GPIO polling</p>
 <p>As a reminder, the overall specs for the project are listed below, with the already-completed specs checked off.</p>
 <ul class="task-list">
-<li><label><input type="checkbox">Robot follows a black line without significant deviation</label></li>
+<li><label><input type="checkbox">Robot follows a line of one color without significant deviation</label></li>
 <li><label><input type="checkbox">Robot doesn’t move if no line is detected</label></li>
-<li><label><input type="checkbox" checked="">Design allows user to configure threshold for line being detected</label></li>
 <li><label><input type="checkbox">Robot uses camera as vision interface</label></li>
 <li><label><input type="checkbox" checked="">FPGA receives pixel data from OV7670</label></li>
 <li><label><input type="checkbox" checked="">FPGA sends masked frame data to MCU over a communication interface</label></li>
