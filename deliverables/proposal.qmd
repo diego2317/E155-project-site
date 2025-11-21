@@ -15,13 +15,13 @@ The inspiration for this project came from a project Diego completed in a roboti
 
 ## Specifications
 
-- Robot follows a black line without significant deviation
+- Robot follows a black line on white paper without significant deviation
 - Robot doesn’t move if no line is detected
-- Design allows user to configure threshold for line being detected
 - Robot uses camera as vision interface
 - FPGA receives pixel data from OV7670
-- FPGA sends masked frame data to MCU over a communication interface
+- FPGA sends masked pixel data to MCU over a communication interface
 - MCU configures registers on OV7670 over SCCB/I2C interface
+- MCU is able to receive full frames from FPGA
 
 ## Design Details
 
