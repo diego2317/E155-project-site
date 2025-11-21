@@ -1,0 +1,22 @@
+---
+title: "Project Midpoint Report"
+description: "Project Midpoint Report"
+author: "Aabhas Senapati & Diego Weiss"
+date: "11/20/25"
+categories:
+  - deliverables
+draft: false
+---
+
+### Progress Report
+
+### Documentation
+
+#### Schematic
+
+![Schematic](/images/midpoint/schematic.png)
+
+#### Block Diagram
+![Block Diagram](/images/midpoint/block_diagram.png)
+
+

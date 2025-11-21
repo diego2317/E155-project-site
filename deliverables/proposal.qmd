@@ -20,7 +20,8 @@ The inspiration for this project came from a project Diego completed in a roboti
 - Design allows user to configure threshold for line being detected
 - Robot uses camera as vision interface
 - FPGA receives pixel data from OV7670
-- MCU receives frame from FPGA over SPI
+- FPGA sends masked frame data to MCU over a communication interface
+- MCU configures registers on OV7670 over SCCB/I2C interface
 
 ## Design Details
 
