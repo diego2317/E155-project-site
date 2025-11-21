@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://diego2317.github.io/E155-project-site/index.html</loc>
+    <lastmod>2025-10-20T15:59:06.096Z</lastmod>
+  </url>
+  <url>
     <loc>https://diego2317.github.io/E155-project-site/deliverables/proposal.html</loc>
-    <lastmod>2025-10-20T18:29:01.955Z</lastmod>
+    <lastmod>2025-11-21T04:05:27.939Z</lastmod>
   </url>
   <url>
     <loc>https://diego2317.github.io/E155-project-site/about.html</loc>
-    <lastmod>2025-10-14T16:48:34.276Z</lastmod>
+    <lastmod>2025-10-20T15:59:06.096Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diego2317.github.io/E155-project-site/deliverables/midpoint.html</loc>
+    <lastmod>2025-11-21T04:06:07.695Z</lastmod>
   </url>
   <url>
     <loc>https://diego2317.github.io/E155-project-site/deliverables.html</loc>
-    <lastmod>2025-10-14T16:48:34.276Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diego2317.github.io/E155-project-site/index.html</loc>
-    <lastmod>2025-10-14T16:48:34.276Z</lastmod>
+    <lastmod>2025-10-20T15:59:06.096Z</lastmod>
   </url>
 </urlset>

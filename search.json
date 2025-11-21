@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Robot Site",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
     "objectID": "deliverables/proposal.html",
     "href": "deliverables/proposal.html",
     "title": "Project Proposal",
@@ -18,7 +25,7 @@
     "href": "deliverables/proposal.html#specifications",
     "title": "Project Proposal",
     "section": "Specifications",
-    "text": "Specifications\n\nRobot follows a black line without significant deviation\nRobot doesn’t move if no line is detected\nDesign allows user to configure threshold for line being detected\nRobot uses camera as vision interface\nFPGA receives pixel data from OV7670\nMCU receives frame from FPGA over SPI"
+    "text": "Specifications\n\nRobot follows a black line without significant deviation\nRobot doesn’t move if no line is detected\nDesign allows user to configure threshold for line being detected\nRobot uses camera as vision interface\nFPGA receives pixel data from OV7670\nFPGA sends masked frame data to MCU over a communication interface\nMCU configures registers on OV7670 over SCCB/I2C interface"
   },
   {
     "objectID": "deliverables/proposal.html#design-details",
@@ -49,17 +56,17 @@
     "text": "About this site"
   },
   {
+    "objectID": "deliverables/midpoint.html",
+    "href": "deliverables/midpoint.html",
+    "title": "Project Midpoint Report",
+    "section": "",
+    "text": "Progress Report\n\n\nDocumentation\n\nSchematic\n\n\n\nSchematic\n\n\n\n\nBlock Diagram\n\n\n\nBlock Diagram"
+  },
+  {
     "objectID": "deliverables.html",
     "href": "deliverables.html",
     "title": "Early Deliverables",
     "section": "",
-    "text": "Project Proposal\n\n\nProject Proposal\n\n\n\n\n\nOct 15, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Robot Site",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Project Midpoint Report\n\n\nProject Midpoint Report\n\n\n\n\n\nNov 20, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\n\n\n\n\n\n\n\nProject Proposal\n\n\nProject Proposal\n\n\n\n\n\nOct 15, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\nNo matching items"
   }
 ]
