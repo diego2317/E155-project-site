@@ -31,6 +31,14 @@ As a reminder, the overall specs for the project are listed below. All specs wer
 
 The final system schematic representing all the connections between the different peripherals in the system can be seen below.
 
-![Schematic](/images/midpoint/schematic.png)
+![Schematic](/images/checkoff/schematic.jpg)
 
 ### Block Diagram
+
+The team produced a block diagram describing our RTL, which can be seen below.
+
+![Block Diagram](/images/checkoff/rtl.jpg)
+
+### Code
+
+The source code for the final project can be found in the team's [Github repository](https://github.com/diego2317/E155-project)
