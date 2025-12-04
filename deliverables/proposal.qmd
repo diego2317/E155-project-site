@@ -15,7 +15,7 @@ The inspiration for this project came from a project Diego completed in a roboti
 
 ## Specifications
 
-- Robot follows a black line on white paper without significant deviation
+- Robot follows a black line on white paper
 - Robot doesn’t move if no line is detected
 - Robot uses camera as vision interface
 - FPGA receives pixel data from OV7670
