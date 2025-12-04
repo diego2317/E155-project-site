@@ -1,0 +1,13 @@
+---
+title: "MCU Overview"
+---
+
+### General Overview
+
+The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C.
+
+### OV7670 Configuration
+
+The OV7670 Camera module supports register reads and writes over a communication protocol called SCCB, which is very similar to I2C except it doesn't support multi-byte transmission & sends a don't care (X) instead of an ACK/NACK at the end of each transmission. By adding pull-up resistors and limiting ourselves to single-byte transmissions, we were able to use the I2C peripheral on the MCU to configure registers on the OV7670, which was very convenient.
+
+The biggest sticking point with the camera was configuring it to have deterministic behavior. For a long time, we were disabling autoexposure, but the camera still wasn't acting deterministically. The key is to disable autoexposure first, the enable exposure setting by setting specific registers, which can be found in the OV7670 datasheet.

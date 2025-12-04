@@ -1,5 +1,16 @@
 ---
-title: "About"
+title: "References"
 ---
 
-About this site
+### References
+1. [Source code github repository](https://github.com/diego2317/E155-project)
+2. [STM32L432KC Reference Manual](https://hmc-e155.github.io/assets/doc/rm0394-stm32l41xxx42xxx43xxx44xxx45xxx46xxx-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)
+
+### Acknowledgements
+
+Thanks to everyone who made this project possible!
+
+1. To Leilani Elkaslasy, who generously gave us her board when we fried an FPGA at 3 am the day before checkoff.
+2. To Prof. Spencer, for stepping in and teaching MicroPs in such a large class year.
+3. To Xavier Walter, who provided constant support throughout the project.
+4. To Jacob Staimpel, for his help in procuring all the random nuts and bolts used during the mechanical design process.
