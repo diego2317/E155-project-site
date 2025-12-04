@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aabhas Senapati &amp; Diego Weiss">
-<meta name="dcterms.date" content="2025-11-20">
-<meta name="description" content="Project Midpoint Report">
+<meta name="dcterms.date" content="2025-12-03">
+<meta name="description" content="Project Final Checkoff Report">
 
-<title>Project Midpoint Report – Robot Site</title>
+<title>Project Final Checkoff Report – Robot Site</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,20 +116,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#progress-report" id="toc-progress-report" class="nav-link active" data-scroll-target="#progress-report">Progress Report</a>
-  <ul class="collapse">
-  <li><a href="#overall-progress" id="toc-overall-progress" class="nav-link" data-scroll-target="#overall-progress">Overall Progress</a></li>
-  <li><a href="#riskiest-element" id="toc-riskiest-element" class="nav-link" data-scroll-target="#riskiest-element">Riskiest Element</a></li>
-  <li><a href="#summary-of-remaining-work" id="toc-summary-of-remaining-work" class="nav-link" data-scroll-target="#summary-of-remaining-work">Summary of Remaining Work</a></li>
-  </ul></li>
-  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a>
-  <ul class="collapse">
+  <li><a href="#one-pager" id="toc-one-pager" class="nav-link active" data-scroll-target="#one-pager">One Pager</a></li>
   <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
   <li><a href="#block-diagram" id="toc-block-diagram" class="nav-link" data-scroll-target="#block-diagram">Block Diagram</a></li>
-  <li><a href="#mcu-routine-overview" id="toc-mcu-routine-overview" class="nav-link" data-scroll-target="#mcu-routine-overview">MCU Routine Overview</a></li>
-  <li><a href="#fpga-code" id="toc-fpga-code" class="nav-link" data-scroll-target="#fpga-code">FPGA Code</a></li>
-  <li><a href="#mcu-code" id="toc-mcu-code" class="nav-link" data-scroll-target="#mcu-code">MCU Code</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -138,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project Midpoint Report</h1>
+<h1 class="title">Project Final Checkoff Report</h1>
   <div class="quarto-categories">
     <div class="quarto-category">deliverables</div>
   </div>
@@ -146,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Project Midpoint Report
+    Project Final Checkoff Report
   </div>
 </div>
 
@@ -163,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 20, 2025</p>
+      <p class="date">December 3, 2025</p>
     </div>
   </div>
   
@@ -175,49 +164,43 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="progress-report" class="level2">
-<h2 class="anchored" data-anchor-id="progress-report">Progress Report</h2>
-<section id="overall-progress" class="level3">
-<h3 class="anchored" data-anchor-id="overall-progress">Overall Progress</h3>
-<p>As of the midpoint report being written, the team has accomplished the following: - Configuration of the OV7670 camera module through register writes from the MCU over an I2C interface - Pixel data capture from the OV7670 camera module on the FPGA - Streaming bit-masked pixel data from the FPGA to the MCU over a 1-directional parallel bus - Full bit-masked frame capture and display on the MCU using GPIO polling</p>
-<p>As a reminder, the overall specs for the project are listed below, with the already-completed specs checked off.</p>
+<section id="one-pager" class="level3">
+<h3 class="anchored" data-anchor-id="one-pager">One Pager</h3>
+<p>As a reminder, the overall specs for the project are listed below. All specs were completed!</p>
 <ul class="task-list">
-<li><label><input type="checkbox">Robot follows a black line on white paper</label></li>
-<li><label><input type="checkbox">Robot doesn’t move if both cameras see a black line</label></li>
-<li><label><input type="checkbox">Robot uses camera as vision interface</label></li>
-<li><label><input type="checkbox" checked="">FPGA receives pixel data from OV7670</label></li>
-<li><label><input type="checkbox" checked="">FPGA sends masked frame data to MCU over a communication interface</label></li>
-<li><label><input type="checkbox" checked="">MCU configures registers on OV7670 over SCCB/I2C interface</label></li>
-<li><label><input type="checkbox" checked="">MCU is able to receive full frames from FPGA</label></li>
+<li><label><input type="checkbox" checked="">Robot follows a black line on white paper</label>
+<ul>
+<li>This spec essentially encapsulates the project, and was confirmed through visual observation of the final robot.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="">Robot doesn’t move if both cameras see a black line</label>
+<ul>
+<li>This spec was confirmed by observing the performance of the robot.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="">Robot uses camera as vision interface</label>
+<ul>
+<li>The only sensors being used to control the robot are cameras. Due to difficulties encountered with camera noise, two cameras are used to control the robot, with control determined by the amount of black pixels in each image.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="">FPGA receives pixel data from OV7670</label>
+<ul>
+<li>The FPGA receiving pixel data from the OV7670 was confirmed through the performance of our system. It was difficult to verify the design worked in the real world until we had our MCU configured to receive data from the FPGA, but once we did, we were able to confirm that the MCU received changing pixel data from the FPGA, which told us that the FPGA was receiving pixel data from the OV7670. Otherwise, we wouldn’t be able to see the difference between black and white!</li>
+</ul></li>
+<li><label><input type="checkbox" checked="">FPGA sends masked frame data to MCU over a communication interface</label>
+<ul>
+<li>The FPGA sends frames to the MCU over a modified SPI bus, where the MCU is configured as the master. Because the communication between the FPGA and MCU is one-directional, only the COPI and CLK lines were connected. The MCU recevies a signal from the FPGA indicating that a frame is ready to be sent. Once it receives that signal, it sends the SPI CLK to the FPGA, and the FPGA shifts data out over that clock.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="">MCU configures registers on OV7670 over SCCB/I2C interface</label>
+<ul>
+<li>We were able to confirm that the MCU configures registers on the OV7670 early on in the project. SCCB effectively acts as I2C, but is named differently for licensing reasons. Using the MCU’s I2C peripheral, we were able to write to specific registers and then read back those registers to confirm succesful writes.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="">MCU is able to receive full frames from FPGA</label>
+<ul>
+<li>We know that the MCU receives full frames from the FPGA (within some tolerance), because the control loop includes a condition that the MCU doesn’t control the motor it’s connected to unless it receives at least 76000 pixels from the FPGA. This is actually a critical function for robot control, as if we controlled off partial frames, the robot’s performance would likely suffer.</li>
+</ul></li>
 </ul>
-<p>At this point in the project, the team believes that the riskiest elements have been completed, as the camera is now able to be configured, and camera data is captured by the FPGA, analyzed, and sent to the MCU.</p>
 </section>
-<section id="riskiest-element" class="level3">
-<h3 class="anchored" data-anchor-id="riskiest-element">Riskiest Element</h3>
-<p>Prior to beginning work on the project, the team identified the riskiest element as configuring the OV7670 CMOS camera using the MCU over the SCCB interface. This was because there weren’t many examples on how to implement this interface, which created the possibility of the team needing to bit-bang our own SCCB interface, which is similar to I2C but has some quite relevant differences, the main one being that the SCCB controller on the OV7670 sends a “don’t care” bit as the 9th bit, while the I2C interface on the MCU expects an “ACK” bit to be sent from the OV7670 to acknowledge data. However, the team was succesfully able to configure the OV7670 using the I2C peripheral on the MCU.</p>
-</section>
-<section id="summary-of-remaining-work" class="level3">
-<h3 class="anchored" data-anchor-id="summary-of-remaining-work">Summary of Remaining Work</h3>
-<p>Now that the team is receiving full frames on the MCU, the remaining work can be broken into three phases.</p>
-<section id="phase-1-finalizing-fpga-mcu-code" class="level4">
-<h4 class="anchored" data-anchor-id="phase-1-finalizing-fpga-mcu-code">Phase 1: Finalizing FPGA &amp; MCU Code</h4>
-<p>Currently, the FPGA sends the MCU a pixel as soon as it finishes bit-masking it. For the final design, the goal will be to implement an asynchronous FIFO using the SPRAM on the MCU, so that full frames can be read much quicker, leaving time for robot control.</p>
-</section>
-<section id="phase-2-mechanical-design" class="level4">
-<h4 class="anchored" data-anchor-id="phase-2-mechanical-design">Phase 2: Mechanical Design</h4>
-<p>Although the team has purchased a robot kit, some design considerations need to be taken into account, as the camera needs to be mounted on the robot along with the rest of the parts. The camera module will likely need a light mounted near it to illuminate the track, which would also require the integration of a lens hood.</p>
-</section>
-<section id="phase-3-system-integration-testing" class="level4">
-<h4 class="anchored" data-anchor-id="phase-3-system-integration-testing">Phase 3: System Integration &amp; Testing</h4>
-<p>Once the peripherals are fully integrated and mounted on the robot chassis, the team expects that there will be significant work left to do on tuning the control system on the MCU, as well as tuning camera exposure settings to improve line recognition. Also, the field of view of the camera will need to be determined, and the camera will potentially need to be focused.</p>
-</section>
-</section>
-</section>
-<section id="documentation" class="level2">
-<h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
 <section id="schematic" class="level3">
 <h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
-<p>The team has created a semi-finalized schematic representing all the connections between the different peripherals in the system, which can be seen below.</p>
+<p>The final system schematic representing all the connections between the different peripherals in the system can be seen below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="..\images/midpoint/schematic.png" class="img-fluid figure-img"></p>
@@ -227,58 +210,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="block-diagram" class="level3">
 <h3 class="anchored" data-anchor-id="block-diagram">Block Diagram</h3>
-<p>The block diagram has been updated slightly since the proposal to reflect some of the changes in the design methodology.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="..\images/midpoint/block_diagram.png" class="img-fluid figure-img"></p>
-<figcaption>Block Diagram</figcaption>
-</figure>
-</div>
-</section>
-<section id="mcu-routine-overview" class="level3">
-<h3 class="anchored" data-anchor-id="mcu-routine-overview">MCU Routine Overview</h3>
-<p>Currently, the MCU uses a super loop and polling to capture frame data. Eventually, the hope is to use FreeRTOS, although that is not a spec for the project because it’s a stretch goal. The current routine involves waiting for the frame-active pin to go high, then reading pixel data on the falling edge of PCLK when the pixel data is valid. The pixel data is currently stored in RAM on the MCU, as each frame is only 9.6kB, so one frame can be stored in RAM at a time. Once the asynchronous FIFO has been implemented on the FPGA, the entire frame will be streamed to the MCU, so the MCU will not need to check whether the data is valid. When combined with DMA for frame capture, this will allow for much faster frame reads and will decrease the amount of dropped frames.</p>
-</section>
-<section id="fpga-code" class="level3">
-<h3 class="anchored" data-anchor-id="fpga-code">FPGA Code</h3>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-(Click to expand)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<script src="https://gist.github.com/aabhassenapati/e77423c2d91fbf9056ab3fa485d4000d.js"></script>
-</div>
-</div>
-</div>
-</section>
-<section id="mcu-code" class="level3">
-<h3 class="anchored" data-anchor-id="mcu-code">MCU Code</h3>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-(Click to expand)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<script src="https://gist.github.com/aabhassenapati/b81cd31ee481d1ba313c595e8b905c53.js"></script>
-</div>
-</div>
-</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
