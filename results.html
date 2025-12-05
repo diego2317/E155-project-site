@@ -176,7 +176,21 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="pixel-capture-by-fppa-and-bitmasking-and-frame-data-storage-signals" class="level2">
 <h2 class="anchored" data-anchor-id="pixel-capture-by-fppa-and-bitmasking-and-frame-data-storage-signals">Pixel Capture by FPPA and Bitmasking, and Frame Data storage signals</h2>
-<p>The FPGA had camera_capture_threshold module that captured the images, and bitmasked based on threshold specified, and simulataneously wrote out the pixel bits, these signals were read into the other module and saved on the dual frame buffer. This bitmaksing of images, and the correct capture of all the frame data at the appropriate frame rate was verfied using oscilloscope, where the intermediate fpga signals from this module were mapped to digital pins, and visualized on oscilloscope, and we saw exactly all the 76800 pixels being bitmasked in the pclk domain, and full frame being captured simulataneously, and write address and enable signals being properly triggered to store this bitmasked image. This process was also verified through testbenches which confirmed that correct signal were being asserted.</p>
+<p>The FPGA had camera_capture_threshold module that captured the images, and bitmasked based on threshold specified, and simulataneously wrote out the pixel bits, these signals were read into the other module and saved on the dual frame buffer. This bitmaksing of images, and the correct capture of all the frame data at the appropriate frame rate was verfied using oscilloscope, where the intermediate fpga signals from this module were mapped to digital pins, and visualized on oscilloscope, and we saw exactly all the 76800 pixels being bitmasked in the pclk domain, and full frame being captured simulataneously, and write address and enable signals being properly triggered to store this bitmasked image. This process was also verified through testbenches which confirmed that correct signal were being asserted. This was verified with the fact that we obsevred the same frame rate of 30 FPS, as outputted by the camera, being read out by FPGA.</p>
+<p><img src="images/portfolio/cam_capture_signals.png" class="img-fluid"> <img src="images/portfolio/cam_capture_signals_2.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/portfolio/cam_capture_outputs.png" class="img-fluid figure-img"></p>
+<figcaption>Testbench Outputs verifying FPGA module functioning</figcaption>
+</figure>
+</div>
+<p><img src="images/portfolio/oscope-cam1.jpeg" class="img-fluid"> <img src="images/portfolio/oscope-cam4.jpeg" class="img-fluid"> <img src="images/portfolio/oscope-cam2.jpeg" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/portfolio/oscope-cam3.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Oscilloscope traces showing appropirate pixel and frame capture, and bitmasking based on light conditions</figcaption>
+</figure>
+</div>
 </section>
 <section id="spram-frame-buffer-bitmasked-frame-transfer-and-line-detection" class="level2">
 <h2 class="anchored" data-anchor-id="spram-frame-buffer-bitmasked-frame-transfer-and-line-detection">SPRAM Frame Buffer, Bitmasked frame transfer, and Line Detection</h2>
