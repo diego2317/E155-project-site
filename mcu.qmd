@@ -4,7 +4,9 @@ title: "MCU Overview"
 
 ### General Overview
 
-The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C. A diagram depicting the 
+The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C. A diagram depicting the subroutines on the MCU can be seen below.
+
+![MCU Routine](/images/)
 
 ### OV7670 Configuration
 
