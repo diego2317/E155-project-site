@@ -137,6 +137,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#final-design-of-the-robot" id="toc-final-design-of-the-robot" class="nav-link" data-scroll-target="#final-design-of-the-robot">Final Design of the Robot</a></li>
   <li><a href="#video-demonstration-of-our-robot-navigating-over-a-line" id="toc-video-demonstration-of-our-robot-navigating-over-a-line" class="nav-link" data-scroll-target="#video-demonstration-of-our-robot-navigating-over-a-line">Video Demonstration of our robot navigating over a line</a></li>
   <li><a href="#block-diagram" id="toc-block-diagram" class="nav-link" data-scroll-target="#block-diagram">Block Diagram</a></li>
   <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link" data-scroll-target="#table-of-contents">Table of Contents:</a></li>
@@ -168,6 +169,15 @@ ul.task-list li input[type="checkbox"] {
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
 <p>The goal of this project was to build a line-follower robot, this time interfacing OV7670 cameras with UPduino iCE40 UP5K FPGA board (“the FPGA”) and STM32L432KC microcontroller (“the MCU”). The MCU configures the OV7670 camera over the SCCB protocol. Then the FPGA interface with the camera to read in the pixel data and bitmask it to a binary image, and save it over async fifo dual frame buffer using the SPRAM, and then send the binary image over to MCU over SPI. The MCU reads in the full binary image from the FPGA to detect the presence of the line and then uses this information to control the motor driver, corresponding to the camera and the motor on the same side of the robot and navigate the robot over the line.</p>
+</section>
+<section id="final-design-of-the-robot" class="level2">
+<h2 class="anchored" data-anchor-id="final-design-of-the-robot">Final Design of the Robot</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="robot.png" class="img-fluid figure-img"></p>
+<figcaption>The Line Following Robot!!</figcaption>
+</figure>
+</div>
 </section>
 <section id="video-demonstration-of-our-robot-navigating-over-a-line" class="level2">
 <h2 class="anchored" data-anchor-id="video-demonstration-of-our-robot-navigating-over-a-line">Video Demonstration of our robot navigating over a line</h2>
