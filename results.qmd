@@ -9,7 +9,7 @@ title: "Results"
 The initial camera configuration over SCCB is verfified using the MCU, by reading the registers that were set to achieve QVGA and YUV configuration and also various autoexposure settings, these register writes were verfied by printing over the UART using debug terminal. This ensured that we had correctly configured the camera using the MCU to be able to read out data onto the FPGA for bitmasking.
 
 ## Pixel Capture by FPPA and Bitmasking, and Frame Data storage signals
-The FPGA had camera_capture_threshold module that captured the images, and bitmasked based on threshold specified, and simulataneously wrote out the pixel bits, these signals were read into the other module and saved on the dual frame buffer. This bitmaksing of images, and the correct capture of all the frame data at the appropriate frame rate was verfied using oscilloscope, where the intermediate fpga signals from this module were mapped to digital pins, and visualized on oscilloscope, and we saw exactly all the 76800 pixels being bitmasked in the pclk domain, and full frame being captured simulataneously, and write address and enable signals being properly triggered to store this bitmasked image. This process was also verified through testbenches which confirmed that correct signal were being asserted. This was verified with the fact that we obsevred the same frame rate of 30 FPS, as outputted by the camera, being read out by FPGA.
+The FPGA had camera_capture_threshold module that captured the images, and bitmasked based on threshold specified, and simulataneously wrote out the pixel bits, these signals were read into the other module and saved on the dual frame buffer. This bitmaksing of images, and the correct capture of all the frame data at the appropriate frame rate was verfied using oscilloscope, where the intermediate fpga signals from this module were mapped to digital pins, and visualized on oscilloscope, and we saw exactly all the 76800 pixels being bitmasked in the pclk domain, and full frame being captured simulataneously, and write address and enable signals being properly triggered to store this bitmasked image. This process was also verified through testbenches which confirmed that correct signal were being asserted. This was verified with the fact that we obsevred the same frame rate of 6 FPS, as outputted by the camera, being read out by FPGA.
 
 ![](images/portfolio/cam_capture_signals.png)
 ![](images/portfolio/cam_capture_signals_2.png)
@@ -17,13 +17,7 @@ The FPGA had camera_capture_threshold module that captured the images, and bitma
 ![Testbench Outputs verifying FPGA module functioning](images/portfolio/cam_capture_outputs.png)
 
 
-
-![](images/portfolio/oscope-cam1.jpeg)
-![](images/portfolio/oscope-cam4.jpeg)
-![](images/portfolio/oscope-cam2.jpeg)
-
-
-![Oscilloscope traces showing appropirate pixel and frame capture, and bitmasking based on light conditions](images/portfolio/oscope-cam3.jpeg)
+![Oscilloscope traces showing appropirate pixel and frame capture, and bitmasking based on light conditions, here the pink represents the wr_data (Y-value of pixel) signal, the yellow represents wr_en (pixel) signal, yellow represents the PCLK signal, and the blue represents the in_frame signal](images/portfolio/oscope-cam3.jpeg)
 
 
 
