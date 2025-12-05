@@ -139,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#general-overview" id="toc-general-overview" class="nav-link active" data-scroll-target="#general-overview">General Overview</a></li>
   <li><a href="#ov7670-configuration" id="toc-ov7670-configuration" class="nav-link" data-scroll-target="#ov7670-configuration">OV7670 Configuration</a></li>
   <li><a href="#robot-control" id="toc-robot-control" class="nav-link" data-scroll-target="#robot-control">Robot Control</a></li>
-  <li><a href="#mcu-peripherals" id="toc-mcu-peripherals" class="nav-link" data-scroll-target="#mcu-peripherals">MCU Peripherals</a></li>
+  <li><a href="#mcu-peripherals-hal-usage" id="toc-mcu-peripherals-hal-usage" class="nav-link" data-scroll-target="#mcu-peripherals-hal-usage">MCU Peripherals &amp; HAL Usage</a></li>
   </ul>
 </nav>
     </div>
@@ -167,7 +167,13 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="general-overview" class="level3">
 <h3 class="anchored" data-anchor-id="general-overview">General Overview</h3>
-<p>The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C.</p>
+<p>The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C. A diagram depicting the subroutines on the MCU can be seen below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/mcu_fsm.png" class="img-fluid figure-img"></p>
+<figcaption>MCU Routine</figcaption>
+</figure>
+</div>
 </section>
 <section id="ov7670-configuration" class="level3">
 <h3 class="anchored" data-anchor-id="ov7670-configuration">OV7670 Configuration</h3>
@@ -178,8 +184,27 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="robot-control">Robot Control</h3>
 <p>The plan was to scan the bit-masked frame to find the black line’s left and right edges, take their midpoint, and use this to compute the line’s horizontal position error relative to the image center. To get the line angle, the MCU would compare midpoints of every row and compute the slope/angle of the line segment connecting them. However, the aforementioned delays in configuring the OV7670 meant that this plan had to be scrapped. We decided to transition to a control system akin to what’s used in line-following robots that use two IR sensors to detect a line. This required the use of two boards, one to control a camera and motor on each side. The robot is then controlled by having each MCU read a frame from the FPGA, compare the number of black pixels to a predefined threshold, and then having it drive its motor depending on the threshold.</p>
 </section>
-<section id="mcu-peripherals" class="level3">
-<h3 class="anchored" data-anchor-id="mcu-peripherals">MCU Peripherals</h3>
+<section id="mcu-peripherals-hal-usage" class="level3">
+<h3 class="anchored" data-anchor-id="mcu-peripherals-hal-usage">MCU Peripherals &amp; HAL Usage</h3>
+<p>In order to gain experience with an available <strong>SOMETHING</strong> the HAL was used. Use of the HAL enables a much simpler initialization of the STM32L432KC’s peripherals than using CMSIS templates, as it eliminates the need to write our own drivers, instead enabling the use of vendor-provided peripheral drivers. The peripherals used by the team, as well as their usage, are briefly described below.</p>
+<ul>
+<li>TIM1
+<ul>
+<li>TIM1 was used to generate the XCLK for the OV7670 camera module. The XCLK was configured to a frequency of 10MHz by dividing the system clock, which was set at 80MHz</li>
+</ul></li>
+<li>I2C1
+<ul>
+<li>The I2C1 peripheral was used to enable configuration of the OV7670’s registers over the SCCB bus.</li>
+</ul></li>
+<li>SPI1
+<ul>
+<li>The SPI1 peripheral was used to enable fast data capture of bit-masked pixel data from the FPGA. Although the FPGA did not have SPI configured, the nature of the data transfer protocol between the MCU and FPGA meant that the SPI peripheral on the MCU improved data transfer rate compared to a naive polling-based approach.</li>
+</ul></li>
+<li>LPTIM2
+<ul>
+<li>The team discovered the LPTIM2 peripheral when trying to enable PWM motor control without moving the XCLK line off of PA10. When evaluating the available pins on the MCU that were connected to the breakout board, the team discovered that PA8 could be configured as a PWM signal using AF14, which enables the low-power timer peripheral on the MCU. This was a fun discovery, as we wouldn’t have ran into this peripheral otherwise.</li>
+</ul></li>
+</ul>
 
 
 </section>
