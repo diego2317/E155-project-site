@@ -116,7 +116,9 @@ The frame buffer uses ping-pong buffering to enable simultaneous camera write an
 4. MCU continues reading completed Bank A
 5. Process repeats continuously
 
-This ensures no frame drops at the camera's frame rate, even if the MCU lags behind by one frame.
+
+This ensures no frame drops at 6 fps, even if the MCU lags behind by one frame.
+
 
 ### Clock Domain Crossing (CDC)
 
@@ -150,7 +152,7 @@ The module uses priority-based logic:
 
 At 10 MHz SCK: 76,800 bits / 10 MHz = 7.68 ms per frame 
 
-Camera frame period: 33.33 ms (30 fps)  
+Camera frame period: 9ms  ms per frame( at 6 fps)  
 
 
 ## Pin Count
@@ -165,9 +167,9 @@ Camera frame period: 33.33 ms (30 fps)
 
 Camera Capture:
 
-- Frame rate: 30 fps
-- Pixel rate: 2.3 Mpixels/sec
-- Bit rate: 2.3 Mbits/sec (after thresholding)
+- Frame rate: 6 fps
+- Pixel rate: .46 Mpixels/sec
+- Bit rate: .46 Mbits/sec (after thresholding)
 
 ## Testing Results
 
@@ -182,3 +184,5 @@ The system has been validated with:
 
 
 The hardware has been tested extensively and performs reliably in the line-following application.
+
+
