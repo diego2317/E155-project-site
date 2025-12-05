@@ -113,8 +113,8 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">The Team</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link active" href="./results.html" aria-current="page"> 
+<span class="menu-text">Results</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./deliverables.html"> 
@@ -137,6 +137,10 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#project-demonstration---robot-navigating-over-a-line" id="toc-project-demonstration---robot-navigating-over-a-line" class="nav-link active" data-scroll-target="#project-demonstration---robot-navigating-over-a-line">Project Demonstration - Robot navigating over a line</a></li>
+  <li><a href="#camera-configuration" id="toc-camera-configuration" class="nav-link" data-scroll-target="#camera-configuration">Camera Configuration</a></li>
+  <li><a href="#pixel-capture-by-fppa-and-bitmasking-and-frame-data-storage-signals" id="toc-pixel-capture-by-fppa-and-bitmasking-and-frame-data-storage-signals" class="nav-link" data-scroll-target="#pixel-capture-by-fppa-and-bitmasking-and-frame-data-storage-signals">Pixel Capture by FPPA and Bitmasking, and Frame Data storage signals</a></li>
+  <li><a href="#spram-frame-buffer-bitmasked-frame-transfer-and-line-detection" id="toc-spram-frame-buffer-bitmasked-frame-transfer-and-line-detection" class="nav-link" data-scroll-target="#spram-frame-buffer-bitmasked-frame-transfer-and-line-detection">SPRAM Frame Buffer, Bitmasked frame transfer, and Line Detection</a></li>
+  <li><a href="#robot-control-and-navigation" id="toc-robot-control-and-navigation" class="nav-link" data-scroll-target="#robot-control-and-navigation">Robot Control and Navigation</a></li>
   </ul>
 </nav>
     </div>
@@ -165,6 +169,22 @@ ul.task-list li input[type="checkbox"] {
 <section id="project-demonstration---robot-navigating-over-a-line" class="level2">
 <h2 class="anchored" data-anchor-id="project-demonstration---robot-navigating-over-a-line">Project Demonstration - Robot navigating over a line</h2>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/vnzX3ZjI89I" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="camera-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="camera-configuration">Camera Configuration</h2>
+<p>The initial camera configuration over SCCB is verfified using the MCU, by reading the registers that were set to achieve QVGA and YUV configuration and also various autoexposure settings, these register writes were verfied by printing over the UART using debug terminal. This ensured that we had correctly configured the camera using the MCU to be able to read out data onto the FPGA for bitmasking.</p>
+</section>
+<section id="pixel-capture-by-fppa-and-bitmasking-and-frame-data-storage-signals" class="level2">
+<h2 class="anchored" data-anchor-id="pixel-capture-by-fppa-and-bitmasking-and-frame-data-storage-signals">Pixel Capture by FPPA and Bitmasking, and Frame Data storage signals</h2>
+<p>The FPGA had camera_capture_threshold module that captured the images, and bitmasked based on threshold specified, and simulataneously wrote out the pixel bits, these signals were read into the other module and saved on the dual frame buffer. This bitmaksing of images, and the correct capture of all the frame data at the appropriate frame rate was verfied using oscilloscope, where the intermediate fpga signals from this module were mapped to digital pins, and visualized on oscilloscope, and we saw exactly all the 76800 pixels being bitmasked in the pclk domain, and full frame being captured simulataneously, and write address and enable signals being properly triggered to store this bitmasked image. This process was also verified through testbenches which confirmed that correct signal were being asserted.</p>
+</section>
+<section id="spram-frame-buffer-bitmasked-frame-transfer-and-line-detection" class="level2">
+<h2 class="anchored" data-anchor-id="spram-frame-buffer-bitmasked-frame-transfer-and-line-detection">SPRAM Frame Buffer, Bitmasked frame transfer, and Line Detection</h2>
+<p>The SPRAM frame buffer and bitmasked image transfer over SPI was initially verified over Logic Analyzer to ensure SPI communication worked properly, and then also this was confirmed as the MCU was able to read in all these pixel data, and print the number pixels it received, and print the entire frame over the debug terminal, and by place different objects/lighting conditions in front of camera, and observing the desired results, we were able to verify and test that FPGA was able to store and communicate the bitmasked pixels over SPI correctly. This itself was also sufficient for us to verify that line detection was possible as we verified it by placing white and black paper, and counting the total number of the black and white pixels being observed in a frame, and toggling a GPIO based on if the number of black/white pixels fell in a certain range, confirming with our visual input, we ensured that this worked appropriately.</p>
+</section>
+<section id="robot-control-and-navigation" class="level2">
+<h2 class="anchored" data-anchor-id="robot-control-and-navigation">Robot Control and Navigation</h2>
+<p>This was verified by trying to drive the robot over a black line track on a white background, and see how it performs, and as you can see it is able to appropirately navigate turns in the track, and follow the line, which verified us that our motor control logic based on which camera sees the line, and correspondingly controls the motor, was appropriate to implment such a line following robot design.</p>
 
 
 </section>
