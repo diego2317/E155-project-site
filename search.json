@@ -32,14 +32,35 @@
     "href": "about.html",
     "title": "References",
     "section": "",
-    "text": "References\n\nSource code github repository\nSTM32L432KC Reference Manual\nOV7670 Datasheet\nOV7670 Implementation Guide\n\n\n\nAcknowledgements\nThanks to everyone who made this project possible!\n\nTo Leilani Elkaslasy, who generously gave us her board when we fried an FPGA at 3 am the day before checkoff.\nTo Prof. Spencer, for stepping in and teaching MicroPs in such a large class year.\nTo Xavier Walter, who provided constant support throughout the project.\nTo Jacob Staimpel, for his help in procuring all the random nuts and bolts used during the mechanical design process."
+    "text": "References\n\nSource code github repository\nSTM32L432KC Reference Manual\nOV7670 Datasheet\nOV7670 Implementation Guide\n\n\n\nAcknowledgements\nThanks to everyone who made this project possible!\n\nTo Leilani Elkaslasy, who generously gave us her board when we fried an FPGA at 3 am the day before checkoff.\nTo Prof. Spencer, for stepping in and teaching MicroPs in such a large class year.\nTo Xavier Walter, who provided constant support throughout the project, and found us a much needed buck converter to power our robot.\nTo Jacob Staimpel, for his help in procuring all the random nuts and bolts used during the mechanical design process."
   },
   {
     "objectID": "documentation.html",
     "href": "documentation.html",
     "title": "Documentation",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "The source code for the final project can be found in the team’s Github repository\n\n\n\nThe MCU has four critical functions. It configures the OV7670 over the SCCB interface, sends a signal to drive XCLK on the OV7670, read bit-masked frames from the FPGA over SPI, and control the position of the robot along the line based on the data from the frames. The new functionality on the MCU was the SCCB peripheral to communicate with the camera, this is similar to I2C protcol, and something that is beyond what we learned in the labs.\n\n\n\nThe FPGA has several critical functions, notably to: read & process pixel data from the OV7670, bitmask the high-dimensional image into binary image, store this over SPRAM, and communicate that data to the MCU over SPI. In order to send pixel data to the MCU, a double SPRAM buffer was implemented. The new functionality on the FPGA was the SPRAM buffer and SPI communication, and this is something that is beyond what we implemented in the labs.\n\n\n\nThe main piece of new non-trivial hardware being integrated is the OV7670 camera module, and the SPRAM functionality of the FPGA."
+  },
+  {
+    "objectID": "documentation.html#design-details",
+    "href": "documentation.html#design-details",
+    "title": "Documentation",
+    "section": "",
+    "text": "The source code for the final project can be found in the team’s Github repository\n\n\n\nThe MCU has four critical functions. It configures the OV7670 over the SCCB interface, sends a signal to drive XCLK on the OV7670, read bit-masked frames from the FPGA over SPI, and control the position of the robot along the line based on the data from the frames. The new functionality on the MCU was the SCCB peripheral to communicate with the camera, this is similar to I2C protcol, and something that is beyond what we learned in the labs.\n\n\n\nThe FPGA has several critical functions, notably to: read & process pixel data from the OV7670, bitmask the high-dimensional image into binary image, store this over SPRAM, and communicate that data to the MCU over SPI. In order to send pixel data to the MCU, a double SPRAM buffer was implemented. The new functionality on the FPGA was the SPRAM buffer and SPI communication, and this is something that is beyond what we implemented in the labs.\n\n\n\nThe main piece of new non-trivial hardware being integrated is the OV7670 camera module, and the SPRAM functionality of the FPGA."
+  },
+  {
+    "objectID": "team.html",
+    "href": "team.html",
+    "title": "About",
+    "section": "",
+    "text": "Team\nAabhas Senapati: Aabhas is a IPS Major in Ecology, electornics, and sensing. Find more about on his website and LinkedIn.\nDiego Weiss: Diego is an Enginnering major. Find more on his LinkedIn"
+  },
+  {
+    "objectID": "deliverables.html",
+    "href": "deliverables.html",
+    "title": "Early Deliverables",
+    "section": "",
+    "text": "Project Final Checkoff Report\n\n\nProject Final Checkoff Report\n\n\n\n\n\nDec 3, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\n\n\n\n\n\n\n\nProject Midpoint Report\n\n\nProject Midpoint Report\n\n\n\n\n\nNov 20, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\n\n\n\n\n\n\n\nProject Proposal\n\n\nProject Proposal\n\n\n\n\n\nOct 15, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "fpga.html",
@@ -91,25 +112,39 @@
     "text": "Testing Results\nThe system has been validated with:\n\nTestbench to verify the module\nContinuous frame capture at QVGA resolution\nCorrect YUV422 byte selection (Y-only)\nThreshold discrimination (black line detection)\nBank swapping without corruption\nProper Serial readout over SPI\n\nThe hardware has been tested extensively and performs reliably in the line-following application."
   },
   {
-    "objectID": "deliverables.html",
-    "href": "deliverables.html",
-    "title": "Early Deliverables",
-    "section": "",
-    "text": "Project Final Checkoff Report\n\n\nProject Final Checkoff Report\n\n\n\n\n\nDec 3, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\n\n\n\n\n\n\n\nProject Midpoint Report\n\n\nProject Midpoint Report\n\n\n\n\n\nNov 20, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\n\n\n\n\n\n\n\nProject Proposal\n\n\nProject Proposal\n\n\n\n\n\nOct 15, 2025\n\n\nAabhas Senapati & Diego Weiss\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "team.html",
-    "href": "team.html",
-    "title": "About",
-    "section": "",
-    "text": "Team\nAabhas Senapati: Aabhas is a IPS Major in Ecology, electornics, and sensing. Find more about on his website and LinkedIn.\nDiego Weiss: Diego is an Enginnering major. Find more on his LinkedIn"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Line Follower Robot",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "The goal of this project was to build a line-follower robot, this time interfacing OV7670 cameras with UPduino iCE40 UP5K FPGA board (“the FPGA”) and STM32L432KC microcontroller (“the MCU”). The MCU configures the OV7670 camera over the SCCB protocol. Then the FPGA interface with the camera to read in the pixel data and bitmask it to a binary image, and save it over async fifo dual frame buffer using the SPRAM, and then send the binary image over to MCU over SPI. The MCU reads in the full binary image from the FPGA to detect the presence of the line and then uses this information to control the motor driver, corresponding to the camera and the motor on the same side of the robot and navigate the robot over the line."
+  },
+  {
+    "objectID": "index.html#abstract",
+    "href": "index.html#abstract",
+    "title": "Line Follower Robot",
+    "section": "",
+    "text": "The goal of this project was to build a line-follower robot, this time interfacing OV7670 cameras with UPduino iCE40 UP5K FPGA board (“the FPGA”) and STM32L432KC microcontroller (“the MCU”). The MCU configures the OV7670 camera over the SCCB protocol. Then the FPGA interface with the camera to read in the pixel data and bitmask it to a binary image, and save it over async fifo dual frame buffer using the SPRAM, and then send the binary image over to MCU over SPI. The MCU reads in the full binary image from the FPGA to detect the presence of the line and then uses this information to control the motor driver, corresponding to the camera and the motor on the same side of the robot and navigate the robot over the line."
+  },
+  {
+    "objectID": "index.html#video-demonstration-of-our-robot-navigating-over-a-line",
+    "href": "index.html#video-demonstration-of-our-robot-navigating-over-a-line",
+    "title": "Line Follower Robot",
+    "section": "Video Demonstration of our robot navigating over a line",
+    "text": "Video Demonstration of our robot navigating over a line"
+  },
+  {
+    "objectID": "index.html#block-diagram",
+    "href": "index.html#block-diagram",
+    "title": "Line Follower Robot",
+    "section": "Block Diagram",
+    "text": "Block Diagram\n\n\n\nBlock Diagram"
+  },
+  {
+    "objectID": "index.html#table-of-contents",
+    "href": "index.html#table-of-contents",
+    "title": "Line Follower Robot",
+    "section": "Table of Contents:",
+    "text": "Table of Contents:\nCheck out the other resources below: -\nDocumentation An overview of the project, including its objectives, scope, novelty, and technical details.\nFPGA Design Detailed explanation of the FPGA implementation, including the camera pixel capture and bitmasking module, and the spram frame buffer and spi transfer module.\nMCU Design Detailed explanation of the MCU implementation in configuring the camera, reading in the bitmasked image, and detecting the line and controlling the robot.\nResults Showcases the project’s main outcomes, including test results, performance and actualy working in real-life.\nTeam Meet the team behind the project!!\nReferences and Acknowledgments References to the resources useful for the project, and acknowledgments for the people who supported in making this project possible"
   },
   {
     "objectID": "deliverables/checkoff.html",

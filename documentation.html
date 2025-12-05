@@ -131,8 +131,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#design-details" id="toc-design-details" class="nav-link active" data-scroll-target="#design-details">Design Details</a>
+  <ul class="collapse">
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
+  <li><a href="#mcu-design-new-functionality" id="toc-mcu-design-new-functionality" class="nav-link" data-scroll-target="#mcu-design-new-functionality">MCU Design &amp; New Functionality</a></li>
+  <li><a href="#fpga-design-new-functionality" id="toc-fpga-design-new-functionality" class="nav-link" data-scroll-target="#fpga-design-new-functionality">FPGA Design &amp; New Functionality</a></li>
+  <li><a href="#new-hardware" id="toc-new-hardware" class="nav-link" data-scroll-target="#new-hardware">New Hardware</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -156,10 +168,27 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a Quarto website.</p>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
+<section id="design-details" class="level2">
+<h2 class="anchored" data-anchor-id="design-details">Design Details</h2>
+<section id="code" class="level3">
+<h3 class="anchored" data-anchor-id="code">Code</h3>
+<p>The source code for the final project can be found in the team’s <a href="https://github.com/diego2317/E155-project">Github repository</a></p>
+</section>
+<section id="mcu-design-new-functionality" class="level3">
+<h3 class="anchored" data-anchor-id="mcu-design-new-functionality">MCU Design &amp; New Functionality</h3>
+<p>The MCU has four critical functions. It configures the OV7670 over the SCCB interface, sends a signal to drive XCLK on the OV7670, read bit-masked frames from the FPGA over SPI, and control the position of the robot along the line based on the data from the frames. The new functionality on the MCU was the SCCB peripheral to communicate with the camera, this is similar to I2C protcol, and something that is beyond what we learned in the labs.</p>
+</section>
+<section id="fpga-design-new-functionality" class="level3">
+<h3 class="anchored" data-anchor-id="fpga-design-new-functionality">FPGA Design &amp; New Functionality</h3>
+<p>The FPGA has several critical functions, notably to: read &amp; process pixel data from the OV7670, bitmask the high-dimensional image into binary image, store this over SPRAM, and communicate that data to the MCU over SPI. In order to send pixel data to the MCU, a double SPRAM buffer was implemented. The new functionality on the FPGA was the SPRAM buffer and SPI communication, and this is something that is beyond what we implemented in the labs.</p>
+</section>
+<section id="new-hardware" class="level3">
+<h3 class="anchored" data-anchor-id="new-hardware">New Hardware</h3>
+<p>The main piece of new non-trivial hardware being integrated is the OV7670 camera module, and the SPRAM functionality of the FPGA.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
