@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://diego2317.github.io/E155-project-site/index.html</loc>
-    <lastmod>2025-10-20T15:59:06.096Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diego2317.github.io/E155-project-site/deliverables/proposal.html</loc>
-    <lastmod>2025-12-04T05:44:31.505Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diego2317.github.io/E155-project-site/deliverables/checkoff.html</loc>
-    <lastmod>2025-12-04T07:32:16.271Z</lastmod>
-  </url>
-  <url>
-    <loc>https://diego2317.github.io/E155-project-site/about.html</loc>
-    <lastmod>2025-10-20T15:59:06.096Z</lastmod>
+    <loc>https://diego2317.github.io/E155-project-site/mcu.html</loc>
+    <lastmod>2025-12-05T01:08:49.942Z</lastmod>
   </url>
   <url>
     <loc>https://diego2317.github.io/E155-project-site/deliverables/midpoint.html</loc>
-    <lastmod>2025-12-04T05:44:36.366Z</lastmod>
+    <lastmod>2025-12-05T01:08:49.938Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diego2317.github.io/E155-project-site/about.html</loc>
+    <lastmod>2025-12-05T01:08:49.937Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diego2317.github.io/E155-project-site/documentation.html</loc>
+    <lastmod>2025-12-05T01:08:49.938Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diego2317.github.io/E155-project-site/fpga.html</loc>
+    <lastmod>2025-12-05T01:08:49.938Z</lastmod>
   </url>
   <url>
     <loc>https://diego2317.github.io/E155-project-site/deliverables.html</loc>
-    <lastmod>2025-10-20T15:59:06.096Z</lastmod>
+    <lastmod>2025-12-05T01:08:49.937Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diego2317.github.io/E155-project-site/team.html</loc>
+    <lastmod>2025-12-05T01:08:49.942Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diego2317.github.io/E155-project-site/index.html</loc>
+    <lastmod>2025-12-05T01:08:49.942Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diego2317.github.io/E155-project-site/deliverables/checkoff.html</loc>
+    <lastmod>2025-12-05T01:08:49.938Z</lastmod>
+  </url>
+  <url>
+    <loc>https://diego2317.github.io/E155-project-site/deliverables/proposal.html</loc>
+    <lastmod>2025-12-05T01:08:49.938Z</lastmod>
   </url>
 </urlset>
