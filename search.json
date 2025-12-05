@@ -67,21 +67,28 @@
     "href": "fpga.html#spram-frame-buffer-and-spi-transfer",
     "title": "FPGA Overview",
     "section": "SPRAM Frame Buffer and SPI Transfer",
-    "text": "SPRAM Frame Buffer and SPI Transfer\n\nMemory Architecture\nThe iCE40 UP5K provides 128 KB of SPRAM (Single-Port RAM), which we use for double-buffered frame storage:\n\nEach frame: 76,800 bits = 4,800 words (16 bits/word)\nBank 0: Addresses 0x0000-0x12BF\nBank 1: Addresses 0x1300-0x257F\nTotal usage: 9,600 words (~15% of SPRAM capacity)\n\n\n\nBit Packing\nSince the threshold module outputs 1 bit per pixel, data is packed into 16-bit words:\nPixel Address [16:0]:\n  Bits [16:4] → Word address (0-4,799)\n  Bits [3:0]  → Bit position (0-15)\nWhen 16 bits accumulate in the camera domain, they’re latched and transferred to the system clock domain (48 MHz) for SPRAM write.\n\n\nDouble Buffering (Ping-Pong)\nThe frame buffer uses ping-pong buffering to enable simultaneous camera write and MCU read:\n\nCamera writes to Bank A, MCU reads from Bank B\nOn frame completion, banks swap roles\nCamera immediately starts writing to Bank B\nMCU continues reading completed Bank A\nProcess repeats continuously\n\nThis ensures no frame drops at 30 fps, even if the MCU lags behind by one frame.\n\n\nClock Domain Crossing (CDC)\nThe system operates across two asynchronous clock domains:\n\nCamera domain: ~2.5 MHz (from OV7670)\nSystem domain: 48 MHz (internal oscillator)\n\nAll cross-domain signals use 3-stage synchronizers to prevent metastability:\n// Example: Write request crossing\nalways @(posedge r_clk) begin\n    w_req_sync &lt;= {w_req_sync[1:0], w_req_toggle};\nend\nData is latched in the source domain before the control signal toggles, ensuring stability during crossing.\n\n\nSerial Interface to MCU\nThe FPGA implements a SPI slave interface:\nProtocol:\n\nFPGA asserts frame_ready when new frame available\nMCU generates SCK pulses (3-48 MHz recommended)\nFPGA outputs one bit per SCK falling edge\nAfter 76,800 bits, FPGA deasserts frame_ready\n\nThe module uses priority-based logic:\n\nNew frame event - Reset address, load first word from SPRAM\nLoad complete - Capture SPRAM data into shift register\nShift on MCU clock - Output bits serially, fetch next word when needed\n\nTiming:\nAt 10 MHz SCK: 76,800 bits / 10 MHz = 7.68 ms per frame\nCamera frame period: 33.33 ms (30 fps)\n\n\nPin Count\n\nCamera interface: 11 pins (pclk, vsync, href, data[7:0])\nMCU interface: 3 pins (sck, mosi, frame_ready)\nSystem: 1 pin (reset)\nTotal: 14 I/O pins"
+    "text": "SPRAM Frame Buffer and SPI Transfer\n\nMemory Architecture\nThe iCE40 UP5K provides 128 KB of SPRAM (Single-Port RAM), which we use for double-buffered frame storage:\n\nEach frame: 76,800 bits = 4,800 words (16 bits/word)\nBank 0: Addresses 0x0000-0x12BF\nBank 1: Addresses 0x1300-0x257F\nTotal usage: 9,600 words (15% of SPRAM capacity)\n\n\n\nBit Packing\nSince the threshold module outputs 1 bit per pixel, data is packed into 16-bit words:\nPixel Address [16:0]:\n  Bits [16:4] → Word address (0-4,799)\n  Bits [3:0]  → Bit position (0-15)\nWhen 16 bits accumulate in the camera domain, they’re latched and transferred to the system clock domain (48 MHz) for SPRAM write.\n\n\nDouble Buffering (Ping-Pong)\nThe frame buffer uses ping-pong buffering to enable simultaneous camera write and MCU read:\n\nCamera writes to Bank A, MCU reads from Bank B\nOn frame completion, banks swap roles\nCamera immediately starts writing to Bank B\nMCU continues reading completed Bank A\nProcess repeats continuously\n\nThis ensures no frame drops at 30 fps, even if the MCU lags behind by one frame.\n\n\nClock Domain Crossing (CDC)\nThe system operates across two asynchronous clock domains:\n\nCamera domain: 2.5 MHz (from OV7670)\nSystem domain: 48 MHz (internal oscillator)\n\nAll cross-domain signals use 3-stage synchronizers to prevent metastability.\nData is latched in the source domain before the control signal toggles, ensuring stability during crossing.\n\n\nSerial Interface to MCU\nThe FPGA implements a SPI slave interface:\nProtocol:\n\nFPGA asserts frame_ready when new frame available\nMCU generates SCK pulses (3-48 MHz recommended)\nFPGA outputs one bit per SCK falling edge\nAfter 76,800 bits, FPGA deasserts frame_ready\n\nThe module uses priority-based logic:\n\nNew frame event - Reset address, load first word from SPRAM\nLoad complete - Capture SPRAM data into shift register\nShift on MCU clock - Output bits serially, fetch next word when needed\n\nTiming:\nAt 10 MHz SCK: 76,800 bits / 10 MHz = 7.68 ms per frame\nCamera frame period: 33.33 ms (30 fps)"
+  },
+  {
+    "objectID": "fpga.html#pin-count",
+    "href": "fpga.html#pin-count",
+    "title": "FPGA Overview",
+    "section": "Pin Count",
+    "text": "Pin Count\n\nCamera interface: 11 pins (pclk, vsync, href, data[7:0])\nMCU interface: 3 pins (sck, mosi, frame_ready)\nSystem: 1 pin (reset)\nTotal: 14 I/O pins"
   },
   {
     "objectID": "fpga.html#performance-summary",
     "href": "fpga.html#performance-summary",
     "title": "FPGA Overview",
     "section": "Performance Summary",
-    "text": "Performance Summary\nCamera Capture: - Frame rate: 30 fps - Pixel rate: 2.3 Mpixels/sec - Bit rate: 2.3 Mbits/sec (after thresholding)"
+    "text": "Performance Summary\nCamera Capture:\n\nFrame rate: 30 fps\nPixel rate: 2.3 Mpixels/sec\nBit rate: 2.3 Mbits/sec (after thresholding)"
   },
   {
     "objectID": "fpga.html#testing-results",
     "href": "fpga.html#testing-results",
     "title": "FPGA Overview",
     "section": "Testing Results",
-    "text": "Testing Results\nThe system has been validated with:\n\nContinuous frame capture at QVGA resolution\nCorrect YUV422 byte selection (Y-only)\nThreshold discrimination (black line detection)\nBank swapping without corruption\nProper Serial readout over SPI\n\nThe hardware has been tested extensively and performs reliably in the line-following application."
+    "text": "Testing Results\nThe system has been validated with:\n\nTestbench to verify the module\nContinuous frame capture at QVGA resolution\nCorrect YUV422 byte selection (Y-only)\nThreshold discrimination (black line detection)\nBank swapping without corruption\nProper Serial readout over SPI\n\nThe hardware has been tested extensively and performs reliably in the line-following application."
   },
   {
     "objectID": "deliverables.html",
@@ -95,12 +102,12 @@
     "href": "team.html",
     "title": "About",
     "section": "",
-    "text": "About this site"
+    "text": "Team\nAabhas Senapati: Aabhas is a IPS Major in Ecology, electornics, and sensing. Find more about on his website and LinkedIn.\nDiego Weiss: Diego is an Enginnering major. Find more on his LinkedIn"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Robot Site",
+    "title": "Line Follower Robot",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   },

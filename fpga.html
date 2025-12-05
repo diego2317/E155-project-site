@@ -184,8 +184,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#double-buffering-ping-pong" id="toc-double-buffering-ping-pong" class="nav-link" data-scroll-target="#double-buffering-ping-pong">Double Buffering (Ping-Pong)</a></li>
   <li><a href="#clock-domain-crossing-cdc" id="toc-clock-domain-crossing-cdc" class="nav-link" data-scroll-target="#clock-domain-crossing-cdc">Clock Domain Crossing (CDC)</a></li>
   <li><a href="#serial-interface-to-mcu" id="toc-serial-interface-to-mcu" class="nav-link" data-scroll-target="#serial-interface-to-mcu">Serial Interface to MCU</a></li>
-  <li><a href="#pin-count" id="toc-pin-count" class="nav-link" data-scroll-target="#pin-count">Pin Count</a></li>
   </ul></li>
+  <li><a href="#pin-count" id="toc-pin-count" class="nav-link" data-scroll-target="#pin-count">Pin Count</a></li>
   <li><a href="#performance-summary" id="toc-performance-summary" class="nav-link" data-scroll-target="#performance-summary">Performance Summary</a></li>
   <li><a href="#testing-results" id="toc-testing-results" class="nav-link" data-scroll-target="#testing-results">Testing Results</a></li>
   </ul>
@@ -280,7 +280,7 @@ Bytes Captured:  Y0  --  Y1  --  Y2  --  Y3  -- ...</code></pre>
 <li>Each frame: 76,800 bits = 4,800 words (16 bits/word)</li>
 <li>Bank 0: Addresses 0x0000-0x12BF</li>
 <li>Bank 1: Addresses 0x1300-0x257F</li>
-<li>Total usage: 9,600 words (~15% of SPRAM capacity)</li>
+<li>Total usage: 9,600 words (15% of SPRAM capacity)</li>
 </ul>
 </section>
 <section id="bit-packing" class="level3">
@@ -307,14 +307,10 @@ Bytes Captured:  Y0  --  Y1  --  Y2  --  Y3  -- ...</code></pre>
 <h3 class="anchored" data-anchor-id="clock-domain-crossing-cdc">Clock Domain Crossing (CDC)</h3>
 <p>The system operates across two asynchronous clock domains:</p>
 <ul>
-<li>Camera domain: ~2.5 MHz (from OV7670)</li>
+<li>Camera domain: 2.5 MHz (from OV7670)</li>
 <li>System domain: 48 MHz (internal oscillator)</li>
 </ul>
-<p>All cross-domain signals use 3-stage synchronizers to prevent metastability:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode verilog code-with-copy"><code class="sourceCode verilog"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Example: Write request crossing</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">always</span> <span class="op">@(</span><span class="kw">posedge</span> r_clk<span class="op">)</span> <span class="kw">begin</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    w_req_sync <span class="op">&lt;=</span> <span class="op">{</span>w_req_sync<span class="op">[</span><span class="dv">1</span><span class="op">:</span><span class="dv">0</span><span class="op">],</span> w_req_toggle<span class="op">};</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>All cross-domain signals use 3-stage synchronizers to prevent metastability.</p>
 <p>Data is latched in the source domain before the control signal toggles, ensuring stability during crossing.</p>
 </section>
 <section id="serial-interface-to-mcu" class="level3">
@@ -337,8 +333,9 @@ Bytes Captured:  Y0  --  Y1  --  Y2  --  Y3  -- ...</code></pre>
 <p>At 10 MHz SCK: 76,800 bits / 10 MHz = 7.68 ms per frame</p>
 <p>Camera frame period: 33.33 ms (30 fps)</p>
 </section>
-<section id="pin-count" class="level3">
-<h3 class="anchored" data-anchor-id="pin-count">Pin Count</h3>
+</section>
+<section id="pin-count" class="level2">
+<h2 class="anchored" data-anchor-id="pin-count">Pin Count</h2>
 <ul>
 <li><strong>Camera interface:</strong> 11 pins (pclk, vsync, href, data[7:0])</li>
 <li><strong>MCU interface:</strong> 3 pins (sck, mosi, frame_ready)</li>
@@ -346,15 +343,20 @@ Bytes Captured:  Y0  --  Y1  --  Y2  --  Y3  -- ...</code></pre>
 <li><strong>Total</strong>: 14 I/O pins</li>
 </ul>
 </section>
-</section>
 <section id="performance-summary" class="level2">
 <h2 class="anchored" data-anchor-id="performance-summary">Performance Summary</h2>
-<p><strong>Camera Capture:</strong> - Frame rate: 30 fps - Pixel rate: 2.3 Mpixels/sec - Bit rate: 2.3 Mbits/sec (after thresholding)</p>
+<p>Camera Capture:</p>
+<ul>
+<li>Frame rate: 30 fps</li>
+<li>Pixel rate: 2.3 Mpixels/sec</li>
+<li>Bit rate: 2.3 Mbits/sec (after thresholding)</li>
+</ul>
 </section>
 <section id="testing-results" class="level2">
 <h2 class="anchored" data-anchor-id="testing-results">Testing Results</h2>
 <p>The system has been validated with:</p>
 <ul>
+<li>Testbench to verify the module</li>
 <li>Continuous frame capture at QVGA resolution</li>
 <li>Correct YUV422 byte selection (Y-only)</li>
 <li>Threshold discrimination (black line detection)</li>
