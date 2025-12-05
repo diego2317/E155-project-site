@@ -17,3 +17,27 @@ The FPGA has several critical functions, notably to: read & process pixel data f
 
 ### New Hardware
 The main piece of new non-trivial hardware being integrated is the OV7670 camera module, and the SPRAM functionality of the FPGA.
+
+### Schematic
+
+The final system schematic representing all the connections between the different peripherals in the system can be seen below.
+
+![Schematic](/images/checkoff/schematic.jpg)
+
+### RTL Block Diagram
+
+The block diagram describing our RTL, which can be seen below.
+
+![Block Diagram](/images/checkoff/rtl.jpg)
+
+### Bill of Materials
+
+| Item | Part Number | Quantity | Price | Source |
+|------|-------------|----------|-------|--------|
+| Camera Module | OV7670 | 2 | $9 | Amazon|
+| Motor Driver | L298N | 1 | $6 | Amazon |
+| MCU and FPGA | STM32L432KC and ICE40up5k|2|NA|Provided
+| Buck Converter | LM2596S |1| NA | Stockroom |
+| Robot Chassis Kit | N/A | 1 | $10 | Stockroom |
+| LiPo Battery (12V) | LM2596S |1| NA | Stockroom |
+| Resistors | 4.7k Ohm | 4 | NA | Stockroom

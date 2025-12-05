@@ -12,6 +12,12 @@ OV7670 Camera → Threshold Module → Frame Buffer → Serial Interface → MCU
 (YUV422 QVGA) (Y-only, 1-bit/pixel)  (SPRAM)         (SPI)
 ```
 
+### RTL Block Diagram
+
+The block diagram describing our RTL, which can be seen below.
+
+![Block Diagram](/images/checkoff/rtl.jpg)
+
 ## OV7670 Camera Pixel Capture and Bitmasking
 
 ### YUV422 Format and Y-value (luminosity) of pixel extraction
