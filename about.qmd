@@ -5,6 +5,8 @@ title: "References"
 ### References
 1. [Source code github repository](https://github.com/diego2317/E155-project)
 2. [STM32L432KC Reference Manual](https://hmc-e155.github.io/assets/doc/rm0394-stm32l41xxx42xxx43xxx44xxx45xxx46xxx-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)
+3. [OV7670 Datasheet](https://web.mit.edu/6.111/www/f2016/tools/OV7670_2006.pdf)
+4. [OV7670 Implementation Guide](https://www.haoyuelectronics.com/Attachment/OV7670%20+%20AL422B(FIFO)%20Camera%20Module(V2.0)/OV7670%20Implementation%20Guide%20(V1.0).pdf)
 
 ### Acknowledgements
 
