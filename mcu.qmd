@@ -4,7 +4,7 @@ title: "MCU Overview"
 
 ### General Overview
 
-The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C.
+The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C. A diagram depicting the 
 
 ### OV7670 Configuration
 
@@ -14,4 +14,7 @@ The biggest sticking point with the camera was configuring it to have determinis
 
 ### Robot Control
 
-The plan was to scan the bit-masked frame to find the black line’s left and right edges, take their midpoint, and use this to compute the line’s horizontal position error relative to the image center. To get the line angle, the MCU would compare midpoints of every row and compute the slope/angle of the line segment connecting them. However, the aforementioned delays in configuring the OV7670 meant that this plan had to be scrapped. We decided to transition to a control system akin to what's used in line-following robots that use two IR sensors to detect a line. This required the use of two boards, one to control a camera and motor on each side. The robot is then controlled by having each MCU read a frame 
+The plan was to scan the bit-masked frame to find the black line’s left and right edges, take their midpoint, and use this to compute the line’s horizontal position error relative to the image center. To get the line angle, the MCU would compare midpoints of every row and compute the slope/angle of the line segment connecting them. However, the aforementioned delays in configuring the OV7670 meant that this plan had to be scrapped. We decided to transition to a control system akin to what's used in line-following robots that use two IR sensors to detect a line. This required the use of two boards, one to control a camera and motor on each side. The robot is then controlled by having each MCU read a frame from the FPGA, compare the number of black pixels to a predefined threshold, and then having it drive its motor depending on the threshold.
+
+### MCU Peripherals
+
