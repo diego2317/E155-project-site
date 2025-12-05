@@ -14,5 +14,5 @@ Thanks to everyone who made this project possible!
 
 1. To Leilani Elkaslasy, who generously gave us her board when we fried an FPGA at 3 am the day before checkoff.
 2. To Prof. Spencer, for stepping in and teaching MicroPs in such a large class year.
-3. To Xavier Walter, who provided constant support throughout the project.
+3. To Xavier Walter, who provided constant support throughout the project, and found us a much needed buck converter to power our robot.
 4. To Jacob Staimpel, for his help in procuring all the random nuts and bolts used during the mechanical design process.
