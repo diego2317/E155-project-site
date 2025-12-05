@@ -142,6 +142,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#mcu-design-new-functionality" id="toc-mcu-design-new-functionality" class="nav-link" data-scroll-target="#mcu-design-new-functionality">MCU Design &amp; New Functionality</a></li>
   <li><a href="#fpga-design-new-functionality" id="toc-fpga-design-new-functionality" class="nav-link" data-scroll-target="#fpga-design-new-functionality">FPGA Design &amp; New Functionality</a></li>
   <li><a href="#new-hardware" id="toc-new-hardware" class="nav-link" data-scroll-target="#new-hardware">New Hardware</a></li>
+  <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
+  <li><a href="#rtl-block-diagram" id="toc-rtl-block-diagram" class="nav-link" data-scroll-target="#rtl-block-diagram">RTL Block Diagram</a></li>
+  <li><a href="#bill-of-materials" id="toc-bill-of-materials" class="nav-link" data-scroll-target="#bill-of-materials">Bill of Materials</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -185,6 +188,91 @@ ul.task-list li input[type="checkbox"] {
 <section id="new-hardware" class="level3">
 <h3 class="anchored" data-anchor-id="new-hardware">New Hardware</h3>
 <p>The main piece of new non-trivial hardware being integrated is the OV7670 camera module, and the SPRAM functionality of the FPGA.</p>
+</section>
+<section id="schematic" class="level3">
+<h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
+<p>The final system schematic representing all the connections between the different peripherals in the system can be seen below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/checkoff/schematic.jpg" class="img-fluid figure-img"></p>
+<figcaption>Schematic</figcaption>
+</figure>
+</div>
+</section>
+<section id="rtl-block-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="rtl-block-diagram">RTL Block Diagram</h3>
+<p>The block diagram describing our RTL, which can be seen below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/checkoff/rtl.jpg" class="img-fluid figure-img"></p>
+<figcaption>Block Diagram</figcaption>
+</figure>
+</div>
+</section>
+<section id="bill-of-materials" class="level3">
+<h3 class="anchored" data-anchor-id="bill-of-materials">Bill of Materials</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Part Number</th>
+<th>Quantity</th>
+<th>Price</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Camera Module</td>
+<td>OV7670</td>
+<td>2</td>
+<td>$9</td>
+<td>Amazon</td>
+</tr>
+<tr class="even">
+<td>Motor Driver</td>
+<td>L298N</td>
+<td>1</td>
+<td>$6</td>
+<td>Amazon</td>
+</tr>
+<tr class="odd">
+<td>MCU and FPGA</td>
+<td>STM32L432KC and ICE40up5k</td>
+<td>2</td>
+<td>NA</td>
+<td>Provided</td>
+</tr>
+<tr class="even">
+<td>Buck Converter</td>
+<td>LM2596S</td>
+<td>1</td>
+<td>NA</td>
+<td>Stockroom</td>
+</tr>
+<tr class="odd">
+<td>Robot Chassis Kit</td>
+<td>N/A</td>
+<td>1</td>
+<td>$10</td>
+<td>Stockroom</td>
+</tr>
+<tr class="even">
+<td>LiPo Battery (12V)</td>
+<td>LM2596S</td>
+<td>1</td>
+<td>NA</td>
+<td>Stockroom</td>
+</tr>
+<tr class="odd">
+<td>Resistors</td>
+<td>4.7k Ohm</td>
+<td>4</td>
+<td>NA</td>
+<td>Stockroom</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

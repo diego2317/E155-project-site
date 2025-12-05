@@ -171,7 +171,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#general-overview" id="toc-general-overview" class="nav-link active" data-scroll-target="#general-overview">General Overview</a></li>
+  <li><a href="#general-overview" id="toc-general-overview" class="nav-link active" data-scroll-target="#general-overview">General Overview</a>
+  <ul class="collapse">
+  <li><a href="#rtl-block-diagram" id="toc-rtl-block-diagram" class="nav-link" data-scroll-target="#rtl-block-diagram">RTL Block Diagram</a></li>
+  </ul></li>
   <li><a href="#ov7670-camera-pixel-capture-and-bitmasking" id="toc-ov7670-camera-pixel-capture-and-bitmasking" class="nav-link" data-scroll-target="#ov7670-camera-pixel-capture-and-bitmasking">OV7670 Camera Pixel Capture and Bitmasking</a>
   <ul class="collapse">
   <li><a href="#yuv422-format-and-y-value-luminosity-of-pixel-extraction" id="toc-yuv422-format-and-y-value-luminosity-of-pixel-extraction" class="nav-link" data-scroll-target="#yuv422-format-and-y-value-luminosity-of-pixel-extraction">YUV422 Format and Y-value (luminosity) of pixel extraction</a></li>
@@ -219,6 +222,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>System Architecture:</strong></p>
 <pre><code>OV7670 Camera → Threshold Module → Frame Buffer → Serial Interface → MCU
 (YUV422 QVGA) (Y-only, 1-bit/pixel)  (SPRAM)         (SPI)</code></pre>
+<section id="rtl-block-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="rtl-block-diagram">RTL Block Diagram</h3>
+<p>The block diagram describing our RTL, which can be seen below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/checkoff/rtl.jpg" class="img-fluid figure-img"></p>
+<figcaption>Block Diagram</figcaption>
+</figure>
+</div>
+</section>
 </section>
 <section id="ov7670-camera-pixel-capture-and-bitmasking" class="level2">
 <h2 class="anchored" data-anchor-id="ov7670-camera-pixel-capture-and-bitmasking">OV7670 Camera Pixel Capture and Bitmasking</h2>
