@@ -27,6 +27,6 @@ In order to gain experience with an available **SOMETHING** the HAL was used. Us
 - I2C1
     - The I2C1 peripheral was used to enable configuration of the OV7670's registers over the SCCB bus.
 - SPI1
-    The SPI1 peripheral was used to enable fast data capture of bit-masked pixel data from the FPGA. Although the FPGA did not have SPI configured, the nature of the data transfer protocol between the MCU and FPGA meant that the SPI peripheral on the MCU improved data transfer rate compared to a naive polling-based approach.
+    - The SPI1 peripheral was used to enable fast data capture of bit-masked pixel data from the FPGA. Although the FPGA did not have SPI configured, the nature of the data transfer protocol between the MCU and FPGA meant that the SPI peripheral on the MCU improved data transfer rate compared to a naive polling-based approach.
 - LPTIM2
     - The team discovered the LPTIM2 peripheral when trying to enable PWM motor control without moving the XCLK line off of PA10. When evaluating the available pins on the MCU that were connected to the breakout board, the team discovered that PA8 could be configured as a PWM signal using AF14, which enables the low-power timer peripheral on the MCU. This was a fun discovery, as we wouldn't have ran into this peripheral otherwise.
