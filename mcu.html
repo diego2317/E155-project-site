@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.21">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -32,15 +32,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,8 +79,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Robot Site</span>
     </a>
@@ -170,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C. A diagram depicting the subroutines on the MCU can be seen below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./images/mcu_fsm.png" class="img-fluid figure-img"></p>
+<p><img src=".\images/portfolio/mcu_fsm.png" class="img-fluid figure-img"></p>
 <figcaption>MCU Routine</figcaption>
 </figure>
 </div>
@@ -183,10 +180,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="robot-control" class="level3">
 <h3 class="anchored" data-anchor-id="robot-control">Robot Control</h3>
 <p>The plan was to scan the bit-masked frame to find the black line’s left and right edges, take their midpoint, and use this to compute the line’s horizontal position error relative to the image center. To get the line angle, the MCU would compare midpoints of every row and compute the slope/angle of the line segment connecting them. However, the aforementioned delays in configuring the OV7670 meant that this plan had to be scrapped. We decided to transition to a control system akin to what’s used in line-following robots that use two IR sensors to detect a line. This required the use of two boards, one to control a camera and motor on each side. The robot is then controlled by having each MCU read a frame from the FPGA, compare the number of black pixels to a predefined threshold, and then having it drive its motor depending on the threshold.</p>
+<p>We know that the MCU receives full frames from the FPGA (within some tolerance), because the control loop includes a condition that the MCU doesn’t control the motor it’s connected to unless it receives at least 76000 pixels from the FPGA. This is actually a critical function for robot control, as if we controlled off partial frames, the robot wouldn’t work.</p>
 </section>
 <section id="mcu-peripherals-hal-usage" class="level3">
 <h3 class="anchored" data-anchor-id="mcu-peripherals-hal-usage">MCU Peripherals &amp; HAL Usage</h3>
-<p>In order to gain experience with an available <strong>SOMETHING</strong> the HAL was used. Use of the HAL enables a much simpler initialization of the STM32L432KC’s peripherals than using CMSIS templates, as it eliminates the need to write our own drivers, instead enabling the use of vendor-provided peripheral drivers. The peripherals used by the team, as well as their usage, are briefly described below.</p>
+<p>The Hardware Abstraction Layer (HAL) provided by STM was used by the team during this project, in order to gain experience with it. Use of the HAL enables a much simpler initialization of the STM32L432KC’s peripherals than using CMSIS templates, as it eliminates the need to write our own drivers, instead enabling the use of vendor-provided peripheral drivers. The peripherals used by the team, as well as their usage, are briefly described below.</p>
 <ul>
 <li>TIM1
 <ul>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.21">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,15 +67,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -115,8 +114,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Robot Site</span>
     </a>
@@ -227,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The block diagram describing our RTL, which can be seen below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./images/checkoff/rtl.jpg" class="img-fluid figure-img"></p>
+<p><img src=".\images/checkoff/rtl.jpg" class="img-fluid figure-img"></p>
 <figcaption>Block Diagram</figcaption>
 </figure>
 </div>
@@ -252,7 +249,7 @@ Bytes Captured:  Y0  --  Y1  --  Y2  --  Y3  -- ...</code></pre>
 <h3 class="anchored" data-anchor-id="threshold-module-operation">Threshold Module Operation</h3>
 <p>The camera_capture_threshold module runs entirely in the camera pixel clock domain and processes incoming YUV422 data in real-time.</p>
 <p><strong>Key Signals:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode verilog code-with-copy"><code class="sourceCode verilog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Inputs</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode verilog code-with-copy"><code class="sourceCode verilog"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Inputs</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">cam_pclk:</span>   Pixel clock from OV7670</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dv">cam_vsync:</span>  Frame sync <span class="op">(</span>LOW <span class="op">=</span> active frame<span class="op">)</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dv">cam_href:</span>   Line valid <span class="op">(</span>HIGH <span class="op">=</span> pixel data valid<span class="op">)</span></span>
@@ -263,7 +260,7 @@ Bytes Captured:  Y0  --  Y1  --  Y2  --  Y3  -- ...</code></pre>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dv">wr_addr:</span>    <span class="dv">17</span><span class="op">-</span>bit pixel address <span class="op">(</span><span class="dv">0-76</span><span class="op">,</span><span class="dv">799</span><span class="op">)</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="dv">wr_data:</span>    <span class="dv">1</span><span class="op">-</span>bit thresholded result <span class="op">(</span>bright<span class="op">/</span>dark<span class="op">)</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="dv">wr_en:</span>      Write enable pulse</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="dv">frame_done:</span> Frame complete pulse</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="dv">frame_done:</span> Frame complete pulse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Operation:</strong></p>
 <p>The module uses a priority-based control structure with four operations:</p>
 <ol type="1">
@@ -274,13 +271,13 @@ Bytes Captured:  Y0  --  Y1  --  Y2  --  Y3  -- ...</code></pre>
 </ol>
 <p><strong>Byte Selection Logic:</strong></p>
 <p>A simple toggle mechanism parses the YUV422 stream:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode verilog code-with-copy"><code class="sourceCode verilog"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>byte_select <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="kw">begin</span>      <span class="co">// Y byte</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode verilog code-with-copy"><code class="sourceCode verilog"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>byte_select <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="kw">begin</span>      <span class="co">// Y byte</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    wr_en   <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    wr_data <span class="op">&lt;=</span> <span class="op">(</span>data <span class="op">&gt;</span> threshold<span class="op">);</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    byte_select <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">;</span>            <span class="co">// Next is U/V</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span> <span class="kw">else</span> <span class="kw">begin</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    byte_select <span class="op">&lt;=</span> <span class="dv">0</span><span class="op">;</span>            <span class="co">// Skip U/V, next is Y</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This alternates between capturing Y bytes (luminance) and skipping U/V bytes (chroma).</p>
 </section>
 </section>
@@ -314,7 +311,7 @@ Bytes Captured:  Y0  --  Y1  --  Y2  --  Y3  -- ...</code></pre>
 <li>MCU continues reading completed Bank A</li>
 <li>Process repeats continuously</li>
 </ol>
-<p>This ensures no frame drops at 30 fps, even if the MCU lags behind by one frame.</p>
+<p>This ensures no frame drops at the camera’s frame rate, even if the MCU lags behind by one frame.</p>
 </section>
 <section id="clock-domain-crossing-cdc" class="level3">
 <h3 class="anchored" data-anchor-id="clock-domain-crossing-cdc">Clock Domain Crossing (CDC)</h3>
