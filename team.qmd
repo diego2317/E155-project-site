@@ -3,8 +3,8 @@ title: "About"
 ---
 
 ### Team
+![The team behind this project with the robot](/images/portfolio/team.jpeg)
 
+Aabhas Senapati: Aabhas is doing an IPS Major in Ecology, electronics, and sensing. Find more on his [website](https://aabhass.in) and [LinkedIn](https://linkedin.com/in/aabhassenapati).
 
-Aabhas Senapati: Aabhas is a IPS Major in Ecology, electronics, and sensing. Find more on his [website](https://aabhass.in) and [LinkedIn](https://linkedin.com/in/aabhassenapati).
-
-Diego Weiss: Diego is an Engineering major. Find more on his [LinkedIn](https://www.linkedin.com/in/diegoweiss/)
+Diego Weiss: Diego is doing an Engineering major. Find more on his [LinkedIn](https://www.linkedin.com/in/diegoweiss/)
