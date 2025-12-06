@@ -1,7 +1,34 @@
 ---
-title: "Robot Site"
+title: "Line Follower Robot"
 ---
 
-This is a Quarto website.
+## Abstract
+The goal of this project was to build a line-follower robot, this time interfacing  OV7670 cameras with UPduino iCE40 UP5K FPGA board (“the FPGA”) and STM32L432KC microcontroller (“the MCU”). The MCU configures the OV7670 camera over the SCCB protocol. Then the FPGA interface with the camera to read in the pixel data and bitmask it to a binary image, and save it over async fifo dual frame buffer using the SPRAM, and then send the binary image over to MCU over SPI. The MCU reads in the full binary image from the FPGA to detect the presence of the line and then uses this information to control the motor driver, corresponding to the camera and the motor on the same side of the robot and navigate the robot over the line.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+## Video Demonstration of our robot navigating over a line
+{{< video https://www.youtube.com/watch?v=vnzX3ZjI89I>}}
+
+## Block Diagram
+![Block Diagram](/images/midpoint/block_diagram.png)
+
+## Table of Contents:
+
+Check out the other resources below: - 
+
+[Documentation](documentation.qmd)
+An overview of the project, including its objectives, scope, novelty, and technical details.
+
+[FPGA Design](fpga.qmd)
+Detailed explanation of the FPGA implementation, including the camera pixel capture and bitmasking module, and the spram frame buffer and spi transfer module.
+
+[MCU Design](mcu.qmd)
+Detailed explanation of the MCU implementation in configuring the camera, reading in the bitmasked image, and detecting the line and controlling the robot.
+
+[Results](results.qmd)
+Showcases the project’s main outcomes, including test results, performance and actualy working in real-life.
+
+[Team](team.qmd)
+Meet the team behind the project!!
+
+[References and Acknowledgments](about.qmd)
+References to the resources useful for the project, and acknowledgments for the people who supported in making this project possible

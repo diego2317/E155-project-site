@@ -2,4 +2,9 @@
 title: "About"
 ---
 
-About this site
+### Team
+
+
+Aabhas Senapati: Aabhas is a IPS Major in Ecology, electornics, and sensing. Find more on his [website](https://aabhass.in) and [LinkedIn](https://linkedin.com/in/aabhassenapati).
+
+Diego Weiss: Diego is an Enginnering major. Find more on his [LinkedIn](https://www.linkedin.com/in/diegoweiss/)

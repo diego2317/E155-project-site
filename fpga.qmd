@@ -12,6 +12,12 @@ OV7670 Camera → Threshold Module → Frame Buffer → Serial Interface → MCU
 (YUV422 QVGA) (Y-only, 1-bit/pixel)  (SPRAM)         (SPI)
 ```
 
+### RTL Block Diagram
+
+The block diagram describing our RTL, which can be seen below.
+
+![Block Diagram](/images/checkoff/rtl.jpg)
+
 ## OV7670 Camera Pixel Capture and Bitmasking
 
 ### YUV422 Format and Y-value (luminosity) of pixel extraction
@@ -86,7 +92,7 @@ The iCE40 UP5K provides 128 KB of SPRAM (Single-Port RAM), which we use for doub
 - Each frame: 76,800 bits = 4,800 words (16 bits/word)
 - Bank 0: Addresses 0x0000-0x12BF
 - Bank 1: Addresses 0x1300-0x257F
-- Total usage: 9,600 words (~15% of SPRAM capacity)
+- Total usage: 9,600 words (15% of SPRAM capacity)
 
 ### Bit Packing
 
@@ -116,17 +122,10 @@ This ensures no frame drops at 30 fps, even if the MCU lags behind by one frame.
 
 The system operates across two asynchronous clock domains:
 
-- Camera domain: ~2.5 MHz (from OV7670)
+- Camera domain: 2.5 MHz (from OV7670)
 - System domain: 48 MHz (internal oscillator)
 
-All cross-domain signals use 3-stage synchronizers to prevent metastability:
-
-```verilog
-// Example: Write request crossing
-always @(posedge r_clk) begin
-    w_req_sync <= {w_req_sync[1:0], w_req_toggle};
-end
-```
+All cross-domain signals use 3-stage synchronizers to prevent metastability.
 
 Data is latched in the source domain before the control signal toggles, ensuring stability during crossing.
 
@@ -154,7 +153,7 @@ At 10 MHz SCK: 76,800 bits / 10 MHz = 7.68 ms per frame
 Camera frame period: 33.33 ms (30 fps)  
 
 
-### Pin Count
+## Pin Count
 
 - **Camera interface:** 11 pins (pclk, vsync, href, data[7:0])
 - **MCU interface:** 3 pins (sck, mosi, frame_ready)
@@ -164,7 +163,8 @@ Camera frame period: 33.33 ms (30 fps)
 
 ## Performance Summary
 
-**Camera Capture:**
+Camera Capture:
+
 - Frame rate: 30 fps
 - Pixel rate: 2.3 Mpixels/sec
 - Bit rate: 2.3 Mbits/sec (after thresholding)
@@ -173,10 +173,12 @@ Camera frame period: 33.33 ms (30 fps)
 
 The system has been validated with:
 
+- Testbench to verify the module 
 - Continuous frame capture at QVGA resolution
 - Correct YUV422 byte selection (Y-only)
 - Threshold discrimination (black line detection)
 - Bank swapping without corruption
 - Proper Serial readout over SPI
+
 
 The hardware has been tested extensively and performs reliably in the line-following application.

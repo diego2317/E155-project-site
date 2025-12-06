@@ -15,8 +15,8 @@ website:
         text: MCU
       - href: team.qmd
         text: The Team
-      - href: about.qmd
-        text: About
+      - href: results.qmd
+        text: Results
       - href: deliverables.qmd
         text: Early Deliverables
 
