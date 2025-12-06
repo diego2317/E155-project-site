@@ -9,7 +9,7 @@ The goal of this project was to build a line-follower robot, this time interfaci
 {{< video https://www.youtube.com/watch?v=vnzX3ZjI89I>}}
 
 ## Block Diagram
-![Block Diagram](/images/midpoint/block_diagram.png)
+![Block Diagram](/images/portfolio/block_diagram.png)
 
 ## Table of Contents:
 

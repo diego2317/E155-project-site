@@ -6,7 +6,7 @@ title: "MCU Overview"
 
 The project uses two MCUs, each of which is independent from the other. The MCUs purpose is to read bit-masked pixel data from an FPGA over SPI in frame packets, determine the number of black pixels in the frame, and control a motor based on that number. Each MCU also handles the configuration of an OV7670 camera over I2C. A diagram depicting the subroutines on the MCU can be seen below.
 
-![MCU Routine](/images/mcu_fsm.png)
+![MCU Routine](/images/portfolio/mcu_fsm.png)
 
 ### OV7670 Configuration
 
@@ -20,7 +20,7 @@ The plan was to scan the bit-masked frame to find the black line’s left and ri
 
 ### MCU Peripherals & HAL Usage
 
-In order to gain experience with an available **SOMETHING** the HAL was used. Use of the HAL enables a much simpler initialization of the STM32L432KC's peripherals than using CMSIS templates, as it eliminates the need to write our own drivers, instead enabling the use of vendor-provided peripheral drivers. The peripherals used by the team, as well as their usage, are briefly described below.
+The Hardware Abstraction Layer (HAL) provided by STM was used by the team during this project, in order to gain experience with it. Use of the HAL enables a much simpler initialization of the STM32L432KC's peripherals than using CMSIS templates, as it eliminates the need to write our own drivers, instead enabling the use of vendor-provided peripheral drivers. The peripherals used by the team, as well as their usage, are briefly described below.
 
 - TIM1
     - TIM1 was used to generate the XCLK for the OV7670 camera module. The XCLK was configured to a frequency of 10MHz by dividing the system clock, which was set at 80MHz

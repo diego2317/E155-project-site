@@ -22,7 +22,7 @@ The main piece of new non-trivial hardware being integrated is the OV7670 camera
 
 The final system schematic representing all the connections between the different peripherals in the system can be seen below.
 
-![Schematic](/images/checkoff/schematic.jpg)
+![Schematic](/images/portfolio/schematic.png)
 
 ### RTL Block Diagram
 
